@@ -1,0 +1,10 @@
+.canvas {
+  border: 1px solid red;
+  background: url('/images/bg.gif');
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+body{
+  /* overflow: hidden; */
+}
