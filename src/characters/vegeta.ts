@@ -57,7 +57,7 @@ vegita.loadAnimation(
     { x: 4 * enemySpriteWidth, y: 5 * enemySpriteHeight },
     { x: 5 * enemySpriteWidth, y: 5 * enemySpriteHeight },
   ],
-  2000
+  200
 );
 // fist punch
 vegita.loadAnimation(
@@ -66,7 +66,7 @@ vegita.loadAnimation(
     { x: 3 * enemySpriteWidth, y: 3 * enemySpriteHeight },
     { x: 6 * enemySpriteWidth, y: 3 * enemySpriteHeight },
   ],
-  2000
+  200
 );
 // block
 vegita.loadAnimation(

@@ -1,4 +1,5 @@
 import { goku } from "../characters/goku";
+import { picolo } from "../characters/picolo";
 import { vegita } from "../characters/vegeta";
 import { Effects } from "../classes/effects";
 import {
@@ -20,6 +21,9 @@ smallA.src = "/images/attackeff.png";
 const finalf = new Image();
 finalf.src = "/images/vegetafinal.png";
 
+const piccoloAttackImg = new Image();
+piccoloAttackImg.src = "/images/picoloAttack.png";
+
 export const kamehame = new Effects(
   kameImg,
   goku.x + goku.width / 2 - 100,
@@ -33,6 +37,15 @@ export const blast = new Effects(
   effects,
   vegita.x - vegita.width / 2 - 100,
   vegita.y,
+  118,
+  113,
+  400,
+  400
+);
+export const blastHero = new Effects(
+  effects,
+  goku.x,
+  goku.y + 100,
   118,
   113,
   400,
@@ -58,8 +71,19 @@ export const finalFlash = new Effects(
   300,
   300
 );
+export const piccoloAttack = new Effects(
+  piccoloAttackImg,
+  picolo.x - picolo.width / 2 - 100,
+  picolo.y,
+  256,
+  64,
+  256,
+  64
+);
+
 kamehame.loadAnimation("kame", [{ x: 18, y: 14 }], 100);
 blast.loadAnimation("blast", [{ x: 208, y: 535 }], 100);
+blastHero.loadAnimation("blast", [{ x: 208, y: 535 }], 100);
 
 smallAttack.loadAnimation(
   "sattack",
@@ -77,6 +101,17 @@ finalFlash.loadAnimation(
     {
       x: 100,
       y: 100,
+    },
+  ],
+  100
+);
+
+piccoloAttack.loadAnimation(
+  "kame",
+  [
+    {
+      x: 0,
+      y: 0,
     },
   ],
   100

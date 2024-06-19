@@ -28,27 +28,16 @@ goku.loadAnimation(
     { x: charSpriteWidth, y: 0 },
     { x: 0, y: 9 * charSpriteHeight },
   ],
-  500
+  800
 );
 // walk
 goku.loadAnimation(
   "walk",
-  [
-    // { x: 0, y: 98 },
-    { x: 0, y: 3 * charSpriteHeight },
-    { x: 3 * charSpriteWidth, y: 3 * charSpriteHeight },
-  ],
+  [{ x: 3 * charSpriteWidth, y: 3 * charSpriteHeight }],
   200
 );
 // walk back
-goku.loadAnimation(
-  "back",
-  [
-    { x: 1 * characterWidth, y: 3 * charSpriteHeight },
-    { x: 0 * charSpriteWidth, y: 3 * charSpriteHeight },
-  ],
-  200
-);
+goku.loadAnimation("back", [{ x: 0, y: 3 * charSpriteHeight }], 200);
 // kick
 goku.loadAnimation(
   "kick",
@@ -67,7 +56,17 @@ goku.loadAnimation(
   ],
   200
 );
+
 // block
+goku.loadAnimation(
+  "block",
+  [
+    { x: 3 * charSpriteWidth, y: charSpriteHeight },
+    // { x: 5 * charSpriteWidth, y: 0 },
+  ],
+  300
+);
+
 goku.loadAnimation(
   "hit",
   [

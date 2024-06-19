@@ -1,3 +1,3 @@
-[] kagehameha attack from villan
-[] select character
+[x]game intro
+[x] select character
 [] new level

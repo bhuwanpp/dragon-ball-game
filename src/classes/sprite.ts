@@ -13,7 +13,10 @@ export class AnimationSprite {
     this.currentFrame = 0;
     this.elapsedTime = 0;
   }
-
+  /**
+   *
+   * @param deltaTime for equal frame rates
+   */
   update(deltaTime: number) {
     this.elapsedTime += deltaTime;
     if (this.elapsedTime >= this.frameRate) {
@@ -22,7 +25,10 @@ export class AnimationSprite {
     }
   }
 
-  // retrieve current frame
+  /**
+   *
+   * @returns return current frame
+   */
   getFrame() {
     return this.frames[this.currentFrame];
   }

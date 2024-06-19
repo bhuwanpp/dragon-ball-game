@@ -28,6 +28,11 @@ export class HealthBar {
     this.color = color;
   }
 
+  /**
+   *
+   * @param context for fillText and fillStroke
+   */
+
   public show(context: CanvasRenderingContext2D): void {
     context.lineWidth = 4;
     context.strokeStyle = "#333";
@@ -40,7 +45,10 @@ export class HealthBar {
     context.font = "30px Teko";
     context.fillText("Ki bar", canvasWidth - 100, 38);
   }
-
+  /**
+   *
+   * @param val for  health status bar
+   */
   public updateHealth(val: number): void {
     if (val < 30) {
       this.color = "red";

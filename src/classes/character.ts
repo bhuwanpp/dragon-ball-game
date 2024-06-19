@@ -28,6 +28,10 @@ export class Character {
     this.animations[name] = new AnimationSprite(frames, frameRate);
   }
 
+  /**
+   *
+   * @param name  animation name
+   */
   setAnimation(name: string) {
     this.currentAnimation = this.animations[name];
   }
@@ -39,11 +43,19 @@ export class Character {
     this.state = state;
     this.setAnimation(state);
   }
+  /**
+   * for update the game
+   * @param deltaTime to set animation time
+   */
   update(deltaTime: number) {
     if (this.currentAnimation) {
       this.currentAnimation.update(deltaTime);
     }
   }
+  /**
+   *
+   * @param ctx for draw image
+   */
   draw(ctx: CanvasRenderingContext2D) {
     if (this.currentAnimation) {
       const frame = this.currentAnimation.getFrame();

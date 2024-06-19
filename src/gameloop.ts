@@ -1,6 +1,5 @@
-import { goku } from "./characters/goku";
 import { canvasWidth, characterWidth } from "./contants";
-import { kamehame, smallAttack } from "./effects/kagehame";
+import { kamehame, piccoloAttack, smallAttack } from "./effects/kagehame";
 
 // Audio
 //  fistSound
@@ -15,11 +14,16 @@ kickSound.playbackRate = 2;
 import walk from "/audio/walk.wav";
 const walkSound = new Audio(walk) as HTMLAudioElement;
 
-// kamehame sound
-import kame from "/audio/kamefast.wav";
+// finalMove sound
+// import kame from "/audio/kamefast.wav";
 import { vegita } from "./characters/vegeta";
 import { HealthBar } from "./classes/healthBar";
-const kameSound = new Audio(kame) as HTMLAudioElement;
+import { selectedCharacter } from "./main";
+import { Character } from "./classes/character";
+import { picolo } from "./characters/picolo";
+import { goku } from "./characters/goku";
+import { Effects } from "./classes/effects";
+// const kameSound = new Audio(kame) as HTMLAudioElement;
 
 export let healthVillan = 100;
 export let healthHero = 100;
@@ -51,7 +55,6 @@ let left: boolean,
   fist: boolean,
   block: boolean = false;
 export let final = false;
-let villanFinal = false;
 
 document.addEventListener("keydown", press);
 document.addEventListener("keyup", release);
@@ -85,9 +88,6 @@ function press(e: KeyboardEvent) {
   if (e.key === "l" || e.key === "L") {
     final = true;
   }
-  if (e.key === "v" || e.key === "V") {
-    villanFinal = true;
-  }
 }
 
 function release(e: KeyboardEvent) {
@@ -115,82 +115,98 @@ function release(e: KeyboardEvent) {
   if (e.key === "l" || e.key === "L") {
     final = false;
   }
-  if (e.key === "v" || e.key === "V") {
-    villanFinal = false;
-  }
 }
 
+let player: Character;
+let finalMove: Effects;
 export function gameLoop() {
-  const distance = goku.x + goku.width - vegita.x + vegita.width;
-  if (left && goku.x > -90) {
-    walkSound.play();
-    goku.setState("back");
-    goku.x -= 10;
+  if (selectedCharacter === "piccolo") {
+    player = picolo;
+    finalMove = piccoloAttack;
   }
-  if (right && goku.x + characterWidth - 100 < canvasWidth && distance < 300) {
+  if (selectedCharacter === "goku") {
+    player = goku;
+    finalMove = kamehame;
+  }
+  const distance = player.x + player.width - vegita.x + vegita.width;
+  if (left && player.x > -90) {
     walkSound.play();
-    goku.setState("walk");
-    goku.x += 10;
+    player.setState("back");
+    player.x -= 10;
+  }
+  if (
+    right &&
+    player.x + characterWidth - 100 < canvasWidth &&
+    distance < 300
+  ) {
+    walkSound.play();
+    player.setState("walk");
+    player.x += 10;
   }
 
-  if (up && goku.y > -50) {
-    goku.y -= 60;
+  if (up && player.y > -50) {
+    player.y -= 60;
     vegita.y -= 60;
   }
-  if (down && goku.y + 150 < characterWidth) {
-    goku.y += 60;
+  if (down && player.y + 150 < characterWidth) {
+    player.y += 60;
     vegita.y += 60;
   }
 
   if (block) {
-    goku.setState("block");
+    player.setState("block");
   }
   if (kick) {
     kickSound.play();
-    goku.setState("kick");
+    player.setState("kick");
   }
   if (fist) {
     fistSound.play();
-    goku.setState("fist");
+    player.setState("fist");
   }
   if (final) {
-    goku.setState("final");
-    kamehame.setState("kame");
-    kamehame.x += 10;
-    kameSound.play();
+    player.setState("final");
+    finalMove.setState("kame");
+    finalMove.x += 10;
   }
   if (!final) {
-    kamehame.x = goku.x + goku.width / 2 - 100;
-    kamehame.y = goku.y + 200;
-    kameSound.pause();
+    finalMove.x = player.x + player.width / 2 - 100;
+    finalMove.y = player.y + 150;
+    finalMove.setState("");
   }
+
+  // kameSound.play();
 }
 
-export function botFunction() {
-  // slow down request animation frame ??
-  const distance = goku.x + goku.width - vegita.x + vegita.width;
+// kameSound.pause();
 
+let elapsedTime = 0;
+export function botFunction(deltaTime: number) {
+  smallAttack.x = vegita.x - vegita.width / 2 - 100;
+  smallAttack.y = vegita.y + 100;
+  elapsedTime += deltaTime;
+
+  // slow down request animation frame ??
+  const distance = player.x + player.width - vegita.x + vegita.width;
   const movesArray: string[] = ["kick", "fist"];
-  const move: string =
-    movesArray[Math.floor(Math.random() * movesArray.length)];
-  // villan attack
-  if (goku.state === "stand" && distance > 240) {
+
+  let move: string = movesArray[Math.floor(Math.random() * movesArray.length)];
+  if (player.state === "stand" && distance > 240) {
     vegita.setState(move);
     counterHero++;
   }
 
-  // goku attack
-  if (goku.state === "fist" && distance > 240) {
+  // player attack
+  if (player.state === "fist" && distance > 240) {
     vegita.setState("block");
-    smallAttack.setState("sattack");
   }
-  if (goku.state === "kick" && distance > 240) {
+  if (player.state === "kick" && distance > 240) {
     vegita.setState("block");
     smallAttack.setState("sattack");
   } else {
     smallAttack.setState("none");
   }
-  if (goku.state === "fist" && distance > 240 && counterVillan > 10) {
+  if (player.state === "fist" && distance > 240 && counterVillan > 10) {
     vegita.setState("hit");
     healthVillan -= 0.5;
     healthBarVillain.updateHealth(healthVillan);
@@ -204,12 +220,20 @@ export function botFunction() {
     healthBarHero.updateHealth(healthHero);
   }
 
-  if (goku.state === "kick" && distance > 240 && counterVillan > 10) {
+  if (player.state === "kick" && distance > 240 && counterVillan > 10) {
     vegita.setState("hit");
     healthVillan -= 0.5;
     healthBarVillain.updateHealth(healthVillan);
   }
   if (vegita.state === "fist" && distance > 240) {
-    goku.setState("hit");
+    player.setState("hit");
   }
+}
+export function decreaseHeroHealth(amount: number) {
+  healthHero -= amount;
+  healthBarHero.updateHealth(healthHero);
+}
+export function decreaseVillanHealth(amount: number) {
+  healthVillan -= amount;
+  healthBarVillain.updateHealth(healthVillan);
 }

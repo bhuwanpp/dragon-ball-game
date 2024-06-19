@@ -1,10 +1,57 @@
-.canvas {
-  border: 1px solid red;
-  background: url('/images/bg.gif');
-  background-size: cover; 
-  background-repeat: no-repeat;
-  background-position: center center;
-}
+
 body{
-  /* overflow: hidden; */
+  overflow: hidden;
+  font-family: "Silkscreen", sans-serif;
+}
+.game{
+  position: relative;
+}
+
+
+.controls{
+  position: absolute;
+  left: 1%;
+  top: 1%;
+  color:white;
+  font-size: 20px;
+  font: bold;
+}
+
+.objectives{
+  position: absolute;
+  bottom: 30%;
+  left: 1%;
+  color: white;
+  font-size: 20px;
+}
+.name{
+  position: absolute;
+  top: 30%;
+  left: 1%;
+  color:white;
+  font-size:40px;
+  text-align: center;
+}
+
+.start{
+  position: absolute;
+  top: 80%;
+  left: 39%;
+  background:transparent;
+  padding: 10px 10px;
+  border-radius: 10px;
+  font-size: 40px;
+  /* color: white; */
+  outline: none;
+  font-family: "Silkscreen", sans-serif;
+  border: 1px solid black;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  font: bold;
+  background: white;
+  color: black;
+}
+.start:hover{
+  opacity: 0.8;
+  background: #E59982;
 }

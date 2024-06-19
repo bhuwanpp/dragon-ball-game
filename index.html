@@ -7,14 +7,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Teko:wght@300..700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
   <title>Dragon Ball: Battle of Saiyans </title>
 </head>
 
 <body>
-  <canvas id="canvas" class="canvas"></canvas>
+  <div class="game">
+    <canvas id="canvas" class="canvas"></canvas>
+    <div class="text">
+      <div class="controls">
+        <h3>Controls</h3>
+        <ul>
+          <li>Movement: ArrowLeft/ArrowRight</li>
+          <li>Air|Ground: ArrowUp/ArrowDown</li>
+          <li>Fist : F </li>
+          <li>Kick: K</li>
+          <li>Block: B</li>
+          <li>Main attack : Hold L</li>
+        </ul>
+      </div>
+      <div class="objectives">
+        <h3>Objectives</h3>
+        <ul>
+          <li>Defeat enemies</li>
+          <li>Win the Game</li>
+          <li>Play the next level </li>
+        </ul>
+      </div>
+      <div class="name">
+        <h1>Dragon Ball : Battle of Saiyans </h1>
+      </div>
+      <button id="start" class="start">Start Game</button>
+    </div>
+
+  </div>
   <script type="module" src="/src/main.ts"></script>
 </body>
 
