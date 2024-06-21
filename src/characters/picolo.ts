@@ -13,11 +13,11 @@ spriteSheet.src = "/images/picolofight.png";
 // goku
 export const picolo = new Character(
   spriteSheet,
-  0,
+  20,
   canvasHeight - characterHeight,
   picoloWidth,
   picoloHeight,
-  characterWidth,
+  characterWidth - 100,
   characterHeight
 );
 

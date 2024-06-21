@@ -1,5 +1,8 @@
 import { canvasWidth } from "../contants";
 export let gameOver: boolean = false;
+export function changeGameOver() {
+  gameOver = false;
+}
 export class HealthBar {
   private x: number;
   private y: number;
@@ -52,6 +55,9 @@ export class HealthBar {
   public updateHealth(val: number): void {
     if (val < 30) {
       this.color = "red";
+    }
+    if (val > 30) {
+      this.color = "green";
     }
     if (val <= 0) {
       gameOver = true;

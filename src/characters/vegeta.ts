@@ -1,10 +1,9 @@
-import { Vegita } from "../classes/vegitaClass";
+import { Bots } from "../classes/bot";
 import {
   canvasHeight,
   canvasWidth,
   characterHeight,
   characterWidth,
-  charSpriteHeight,
   enemySpriteHeight,
   enemySpriteWidth,
 } from "../contants";
@@ -13,7 +12,7 @@ const spriteSheet = new Image();
 spriteSheet.src = "/images/SS_Vegetanobg.png";
 
 // goku
-export const vegita = new Vegita(
+export const vegita = new Bots(
   spriteSheet,
   canvasWidth - 10,
   canvasHeight - characterHeight,
@@ -28,7 +27,7 @@ vegita.loadAnimation(
   "stand",
   [
     { x: enemySpriteWidth, y: 0 },
-    { x: 2 * enemySpriteHeight, y: 0 },
+    { x: 2 * enemySpriteWidth, y: 0 },
   ],
   500
 );
@@ -36,8 +35,8 @@ vegita.loadAnimation(
 vegita.loadAnimation(
   "walk",
   [
-    { x: 0 * enemySpriteWidth, y: 3 * charSpriteHeight },
-    { x: 3 * enemySpriteWidth, y: 3 * charSpriteHeight },
+    { x: 0 * enemySpriteWidth, y: 3 * enemySpriteHeight },
+    { x: 3 * enemySpriteWidth, y: 3 * enemySpriteHeight },
   ],
   200
 );
@@ -79,10 +78,7 @@ vegita.loadAnimation(
 );
 vegita.loadAnimation(
   "block",
-  [
-    { x: enemySpriteWidth, y: 6 * enemySpriteHeight },
-    // { x: 4 * enemySpriteWidth, y: enemySpriteHeight },
-  ],
+  [{ x: enemySpriteWidth, y: 6 * enemySpriteHeight }],
   200
 );
 vegita.loadAnimation(

@@ -60,10 +60,7 @@ goku.loadAnimation(
 // block
 goku.loadAnimation(
   "block",
-  [
-    { x: 3 * charSpriteWidth, y: charSpriteHeight },
-    // { x: 5 * charSpriteWidth, y: 0 },
-  ],
+  [{ x: 3 * charSpriteWidth, y: charSpriteHeight }],
   300
 );
 

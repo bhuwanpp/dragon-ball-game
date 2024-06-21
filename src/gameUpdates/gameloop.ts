@@ -1,5 +1,11 @@
-import { canvasWidth, characterWidth } from "./contants";
-import { kamehame, piccoloAttack, smallAttack } from "./effects/kagehame";
+import { canvasWidth, characterWidth } from "../contants";
+import {
+  deathBall,
+  finalFlash,
+  kamehame,
+  piccoloAttack,
+  smallAttack,
+} from "../effects/kagehame";
 
 // Audio
 //  fistSound
@@ -16,13 +22,15 @@ const walkSound = new Audio(walk) as HTMLAudioElement;
 
 // finalMove sound
 // import kame from "/audio/kamefast.wav";
-import { vegita } from "./characters/vegeta";
-import { HealthBar } from "./classes/healthBar";
-import { selectedCharacter } from "./main";
-import { Character } from "./classes/character";
-import { picolo } from "./characters/picolo";
-import { goku } from "./characters/goku";
-import { Effects } from "./classes/effects";
+import { vegita } from "../characters/vegeta";
+import { HealthBar } from "../classes/healthBar";
+import { nextForReset, selectedCharacter } from "../main";
+import { Character } from "../classes/character";
+import { Effects } from "../classes/effects";
+import { Bots } from "../classes/bot";
+import { frieza } from "../characters/frieza";
+import { picolo } from "../characters/picolo";
+import { goku } from "../characters/goku";
 // const kameSound = new Audio(kame) as HTMLAudioElement;
 
 export let healthVillan = 100;
@@ -117,9 +125,11 @@ function release(e: KeyboardEvent) {
   }
 }
 
-let player: Character;
-let finalMove: Effects;
+let chooseBot: Bots;
+export let player: Character;
+export let finalMove: Effects;
 export function gameLoop() {
+  // player select
   if (selectedCharacter === "piccolo") {
     player = picolo;
     finalMove = piccoloAttack;
@@ -128,40 +138,55 @@ export function gameLoop() {
     player = goku;
     finalMove = kamehame;
   }
-  const distance = player.x + player.width - vegita.x + vegita.width;
+  // boot choose
+  if (nextForReset) {
+    chooseBot = frieza;
+  } else {
+    chooseBot = vegita;
+  }
+
+  // boot choose
+  if (nextForReset) {
+    chooseBot = frieza;
+  } else {
+    chooseBot = vegita;
+  }
+
+  // const distance = player.x + player.width - chooseBot.x + chooseBot.width;
   if (left && player.x > -90) {
-    walkSound.play();
+    // walkSound.play();
     player.setState("back");
     player.x -= 10;
   }
-  if (
-    right &&
-    player.x + characterWidth - 100 < canvasWidth &&
-    distance < 300
-  ) {
-    walkSound.play();
+  if (right && player.x + characterWidth - 100 < canvasWidth) {
+    // if (
+    //   right &&
+    //   player.x + characterWidth - 100 < canvasWidth &&
+    //   distance < 300
+    // ) {
+    // walkSound.play();
     player.setState("walk");
     player.x += 10;
   }
 
   if (up && player.y > -50) {
     player.y -= 60;
-    vegita.y -= 60;
+    chooseBot.y -= 60;
   }
   if (down && player.y + 150 < characterWidth) {
     player.y += 60;
-    vegita.y += 60;
+    chooseBot.y += 60;
   }
 
   if (block) {
     player.setState("block");
   }
   if (kick) {
-    kickSound.play();
+    // kickSound.play();
     player.setState("kick");
   }
   if (fist) {
-    fistSound.play();
+    // fistSound.play();
     player.setState("fist");
   }
   if (final) {
@@ -182,53 +207,59 @@ export function gameLoop() {
 
 let elapsedTime = 0;
 export function botFunction(deltaTime: number) {
-  smallAttack.x = vegita.x - vegita.width / 2 - 100;
-  smallAttack.y = vegita.y + 100;
+  smallAttack.x = chooseBot.x - chooseBot.width / 2 - 100;
+  smallAttack.y = chooseBot.y + 100;
   elapsedTime += deltaTime;
 
-  // slow down request animation frame ??
-  const distance = player.x + player.width - vegita.x + vegita.width;
-  const movesArray: string[] = ["kick", "fist"];
-
-  let move: string = movesArray[Math.floor(Math.random() * movesArray.length)];
-  if (player.state === "stand" && distance > 240) {
-    vegita.setState(move);
+  if (detectCollisionGoku(player, chooseBot)) {
+    if (elapsedTime > 5000) {
+      elapsedTime = 0;
+    }
+    if (elapsedTime > 2000) {
+      chooseBot.setState("kick");
+    }
+    if (elapsedTime > 4000) {
+      chooseBot.setState("fist");
+    }
     counterHero++;
+    if (chooseBot.state === "fist") {
+      player.setState("hit");
+    }
+    if (chooseBot.state === "kick") {
+      player.setState("hit");
+    }
+    // player attack
+    if (player.state === "fist") {
+      chooseBot.setState("block");
+    }
+    if (player.state === "kick") {
+      chooseBot.setState("block");
+      smallAttack.setState("sattack");
+    } else {
+      smallAttack.setState("none");
+    }
+    if (player.state === "fist" && counterVillan > 10) {
+      chooseBot.setState("hit");
+      healthVillan -= 10;
+      healthBarVillain.updateHealth(healthVillan);
+    }
+    if (player.state === "kick" && counterVillan > 10) {
+      chooseBot.setState("hit");
+      healthVillan -= 10;
+      healthBarVillain.updateHealth(healthVillan);
+    }
+    if (
+      counterHero > 100 &&
+      (chooseBot.state === "kick" || chooseBot.state === "fist")
+    ) {
+      healthHero -= 0.09;
+      healthBarHero.updateHealth(healthHero);
+    }
   }
-
-  // player attack
-  if (player.state === "fist" && distance > 240) {
-    vegita.setState("block");
-  }
-  if (player.state === "kick" && distance > 240) {
-    vegita.setState("block");
-    smallAttack.setState("sattack");
-  } else {
-    smallAttack.setState("none");
-  }
-  if (player.state === "fist" && distance > 240 && counterVillan > 10) {
-    vegita.setState("hit");
-    healthVillan -= 0.5;
-    healthBarVillain.updateHealth(healthVillan);
-  }
-
-  if (
-    counterHero > 100 &&
-    (vegita.state === "kick" || vegita.state === "fist")
-  ) {
-    healthHero -= 0.09;
-    healthBarHero.updateHealth(healthHero);
-  }
-
-  if (player.state === "kick" && distance > 240 && counterVillan > 10) {
-    vegita.setState("hit");
-    healthVillan -= 0.5;
-    healthBarVillain.updateHealth(healthVillan);
-  }
-  if (vegita.state === "fist" && distance > 240) {
-    player.setState("hit");
-  }
+  // up to here detect collision
 }
+
+// health
 export function decreaseHeroHealth(amount: number) {
   healthHero -= amount;
   healthBarHero.updateHealth(healthHero);
@@ -236,4 +267,39 @@ export function decreaseHeroHealth(amount: number) {
 export function decreaseVillanHealth(amount: number) {
   healthVillan -= amount;
   healthBarVillain.updateHealth(healthVillan);
+}
+
+export function resetVillanHealth() {
+  healthVillan = 100;
+  healthBarVillain.updateHealth(healthVillan);
+}
+
+export function resetHeroHealth() {
+  healthHero = 100;
+  healthBarHero.updateHealth(healthHero);
+}
+export function nextLevelHeroHealth() {
+  healthHero = 130;
+  healthBarHero.updateHealth(healthHero);
+}
+export function nextLevelVillanHealth() {
+  healthVillan = 500;
+  healthBarVillain.updateHealth(healthVillan);
+}
+
+let ignoreNumber = -200;
+
+/**
+ * detects the collision
+ * @param a character or villain
+ * @param b for character effect
+ * @returns if collide true
+ */
+export function detectCollisionGoku(a: Character, b: Bots): boolean {
+  return (
+    a.x < b.x + b.width - ignoreNumber &&
+    a.x + a.width - ignoreNumber > b.x &&
+    a.y < b.y + b.height - ignoreNumber &&
+    a.y + a.height - ignoreNumber > b.y
+  );
 }

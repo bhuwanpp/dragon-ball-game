@@ -1,6 +1,6 @@
 import { AnimationSprite } from "./sprite";
 
-export class Vegita {
+export class Bots {
   private animations: { [key: string]: AnimationSprite } = {};
   private currentAnimation: AnimationSprite | null = null;
   public state: string = "stand";
@@ -72,9 +72,9 @@ export class Vegita {
         this.width,
         this.height
       );
-      // ctx.strokeStyle = "red";
-      // ctx.lineWidth = 2;
-      // ctx.strokeRect(-this.x, this.y, this.width, this.height);
+      ctx.strokeStyle = "red";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(-this.x, this.y, this.width, this.height);
       ctx.restore();
     }
   }
