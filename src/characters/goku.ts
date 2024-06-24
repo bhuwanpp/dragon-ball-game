@@ -1,18 +1,15 @@
 import { Character } from "../classes/character";
+import { characterAnimationState } from "../enums/character";
+import { playerSpriteImage } from "../images/preload";
 import {
   canvasHeight,
   characterHeight,
   characterWidth,
   charSpriteHeight,
   charSpriteWidth,
-} from "../contants";
-
-const spriteSheet = new Image();
-spriteSheet.src = "/images/gokubg.png";
-
-// goku
+} from "../utils/contants";
 export const goku = new Character(
-  spriteSheet,
+  playerSpriteImage.gokuImg,
   0,
   canvasHeight - characterHeight,
   charSpriteWidth,
@@ -23,7 +20,7 @@ export const goku = new Character(
 
 // stand animation
 goku.loadAnimation(
-  "stand",
+  characterAnimationState.Stand,
   [
     { x: charSpriteWidth, y: 0 },
     { x: 0, y: 9 * charSpriteHeight },
@@ -32,15 +29,19 @@ goku.loadAnimation(
 );
 // walk
 goku.loadAnimation(
-  "walk",
+  characterAnimationState.Walk,
   [{ x: 3 * charSpriteWidth, y: 3 * charSpriteHeight }],
   200
 );
 // walk back
-goku.loadAnimation("back", [{ x: 0, y: 3 * charSpriteHeight }], 200);
+goku.loadAnimation(
+  characterAnimationState.Back,
+  [{ x: 0, y: 3 * charSpriteHeight }],
+  200
+);
 // kick
 goku.loadAnimation(
-  "kick",
+  characterAnimationState.Kick,
   [
     { x: 4 * charSpriteWidth, y: 5 * charSpriteHeight },
     { x: 5 * charSpriteWidth, y: 5 * charSpriteHeight },
@@ -49,7 +50,7 @@ goku.loadAnimation(
 );
 // fist punch
 goku.loadAnimation(
-  "fist",
+  characterAnimationState.Fist,
   [
     { x: 3 * charSpriteWidth, y: 3 * charSpriteHeight },
     { x: 6 * charSpriteWidth, y: 3 * charSpriteHeight },
@@ -59,13 +60,13 @@ goku.loadAnimation(
 
 // block
 goku.loadAnimation(
-  "block",
+  characterAnimationState.Block,
   [{ x: 3 * charSpriteWidth, y: charSpriteHeight }],
   300
 );
 
 goku.loadAnimation(
-  "hit",
+  characterAnimationState.Hit,
   [
     { x: 3 * charSpriteWidth, y: charSpriteHeight },
     { x: 4 * charSpriteWidth, y: charSpriteHeight },
@@ -73,7 +74,7 @@ goku.loadAnimation(
   200
 );
 goku.loadAnimation(
-  "hitFlash",
+  characterAnimationState.HitByFinal,
   [
     { x: 5 * charSpriteWidth, y: charSpriteHeight },
     { x: 6 * charSpriteWidth, y: charSpriteHeight },
@@ -83,7 +84,7 @@ goku.loadAnimation(
 );
 // final blow
 goku.loadAnimation(
-  "final",
+  characterAnimationState.FinalAttack,
   [
     { x: 4 * charSpriteWidth, y: 6 * charSpriteHeight },
     { x: 5 * charSpriteWidth, y: 6 * charSpriteHeight },

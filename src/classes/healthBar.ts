@@ -1,4 +1,4 @@
-import { canvasWidth } from "../contants";
+import { canvasWidth } from "../utils/contants";
 export let gameOver: boolean = false;
 export function changeGameOver() {
   gameOver = false;

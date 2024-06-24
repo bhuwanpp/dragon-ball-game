@@ -3,55 +3,30 @@ import { goku } from "../characters/goku";
 import { picolo } from "../characters/picolo";
 import { vegita } from "../characters/vegeta";
 import { Effects } from "../classes/effects";
+import { AttackState } from "../enums/attacks";
+import { effectSpriteImage } from "../images/preload";
 import {
+  canvasHeight,
+  canvasWidth,
   kameHeight,
   kameImgHeight,
   kameImgWidth,
   kameWidth,
-} from "../contants";
-import { player } from "../gameUpdates/gameloop";
-
-const kameImg = new Image();
-kameImg.src = "/images/kamehame.png";
-const effects = new Image();
-effects.src = "/images/effect.png";
-
-const piccoloBImg = new Image();
-piccoloBImg.src = "/images/piccloEffect.png";
-
-const friezaBImg = new Image();
-friezaBImg.src = "/images/friezablast.png";
-
-const blasts = new Image();
-blasts.src = "/images/effect.png";
-
-const smallA = new Image();
-smallA.src = "/images/attackeff.png";
-
-const finalf = new Image();
-finalf.src = "/images/vegetafinal.png";
-
-const deathBallImg = new Image();
-deathBallImg.src = "/images/deathball.png";
-
-const piccoloAttackImg = new Image();
-piccoloAttackImg.src = "/images/picoloAttack.png";
+} from "../utils/contants";
 
 // plyer
-
 export const kamehame = new Effects(
-  kameImg,
+  effectSpriteImage.kameImg,
   goku.x + goku.width / 2 - 100,
-  // player.x + player.width / 2 - 100,
   goku.y + 200,
-  // player.y + 200,
   kameWidth,
   kameHeight,
   kameImgWidth,
   kameImgHeight
 );
+
 export const blast = new Effects(
-  effects,
+  effectSpriteImage.effects,
   vegita.x - vegita.width / 2 - 100,
   vegita.y,
   118,
@@ -60,7 +35,7 @@ export const blast = new Effects(
   400
 );
 export const piccoloBlast = new Effects(
-  piccoloBImg,
+  effectSpriteImage.piccoloBImg,
   vegita.x - vegita.width / 2 - 100,
   vegita.y,
   159,
@@ -69,7 +44,7 @@ export const piccoloBlast = new Effects(
   400
 );
 export const friezaBlast = new Effects(
-  friezaBImg,
+  effectSpriteImage.friezaBImg,
   goku.x,
   goku.y,
   159,
@@ -78,7 +53,7 @@ export const friezaBlast = new Effects(
   400
 );
 export const blastHero = new Effects(
-  effects,
+  effectSpriteImage.effects,
   goku.x,
   goku.y + 100,
   118,
@@ -86,9 +61,8 @@ export const blastHero = new Effects(
   400,
   400
 );
-
 export const smallAttack = new Effects(
-  smallA,
+  effectSpriteImage.smallA,
   vegita.x - vegita.width / 2 - 100,
   vegita.y + 100,
   267,
@@ -96,10 +70,9 @@ export const smallAttack = new Effects(
   267,
   200
 );
-
 export const finalFlash = new Effects(
-  finalf,
-  vegita.x - vegita.width / 2 - 100,
+  effectSpriteImage.finalf,
+  vegita.x - vegita.width,
   vegita.y + 100,
   504,
   529,
@@ -107,9 +80,8 @@ export const finalFlash = new Effects(
   300
 );
 export const deathBall = new Effects(
-  deathBallImg,
-  frieza.x - 600,
-  // 0,
+  effectSpriteImage.deathBallImg,
+  frieza.x - frieza.width,
   frieza.y + 100,
   236,
   231,
@@ -117,7 +89,7 @@ export const deathBall = new Effects(
   300
 );
 export const piccoloAttack = new Effects(
-  piccoloAttackImg,
+  effectSpriteImage.piccoloAttackImg,
   picolo.x - picolo.width / 2 - 100,
   picolo.y,
   256,
@@ -125,79 +97,61 @@ export const piccoloAttack = new Effects(
   256,
   64
 );
+export const clashEffect = new Effects(
+  effectSpriteImage.clashEffectImg,
+  canvasWidth / 2,
+  canvasHeight / 2,
+  202,
+  197,
+  500,
+  500
+);
 
-kamehame.loadAnimation("kame", [{ x: 18, y: 14 }], 100);
-blast.loadAnimation("blast", [{ x: 208, y: 535 }], 100);
+// kamehame
+kamehame.loadAnimation(AttackState.Kame, [{ x: 18, y: 14 }], 100);
+// blast
+blast.loadAnimation(AttackState.Blast, [{ x: 208, y: 535 }], 100);
 piccoloBlast.loadAnimation(
-  "blast",
+  AttackState.Blast,
   [
     { x: 845, y: 68 },
-    {
-      x: 834,
-      y: 194,
-    },
-    {
-      x: 540,
-      y: 462,
-    },
-    {
-      x: 815,
-      y: 336,
-    },
+    { x: 834, y: 194 },
+    { x: 540, y: 462 },
+    { x: 815, y: 336 },
   ],
   100
 );
 friezaBlast.loadAnimation(
-  "blast",
+  AttackState.Blast,
   [
     { x: 361, y: 821 },
-    {
-      x: 552,
-      y: 787,
-    },
-    {
-      x: 139,
-      y: 833,
-    },
-    {
-      x: 146,
-      y: 579,
-    },
+    { x: 552, y: 787 },
+    { x: 139, y: 833 },
+    { x: 146, y: 579 },
   ],
   100
 );
-blastHero.loadAnimation("blast", [{ x: 208, y: 535 }], 100);
+blastHero.loadAnimation(AttackState.Blast, [{ x: 208, y: 535 }], 100);
 
-smallAttack.loadAnimation(
-  "sattack",
-  [
-    // { x: 532, y: 24 },
-    { x: 260, y: 24 },
-  ],
-  100
-);
+smallAttack.loadAnimation(AttackState.SmallAttack, [{ x: 260, y: 24 }], 100);
 
 finalFlash.loadAnimation(
-  "final-flash",
+  AttackState.FinalFlash,
   [
     { x: 0, y: 0 },
-    {
-      x: 100,
-      y: 100,
-    },
+    { x: 100, y: 100 },
   ],
   100
 );
-deathBall.loadAnimation("final-flash", [{ x: 325, y: 752 }], 100);
-// deathBall.loadAnimation("final-flash", [{ x: 10, y: 10 }], 100);
+deathBall.loadAnimation(AttackState.FinalFlash, [{ x: 325, y: 752 }], 100);
 
-piccoloAttack.loadAnimation(
-  "kame",
+piccoloAttack.loadAnimation(AttackState.Kame, [{ x: 0, y: 0 }], 100);
+clashEffect.loadAnimation(
+  AttackState.Clash,
   [
-    {
-      x: 0,
-      y: 0,
-    },
+    { x: 13, y: 801 },
+    { x: 241, y: 801 },
+    { x: 482, y: 801 },
   ],
   100
 );

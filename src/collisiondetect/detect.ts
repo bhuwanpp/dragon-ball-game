@@ -3,7 +3,6 @@ import { Character } from "../classes/character";
 import { Effects } from "../classes/effects";
 
 let ignoreNumber = 300;
-
 /**
  * detects the collision
  * @param a character or villain
@@ -37,5 +36,22 @@ export function detectCollision2(
     a.x + a.width - ignoreNumber2 > b.x &&
     a.y < b.y + b.height - ignoreNumber2 &&
     a.y + a.height - ignoreNumber2 > b.y
+  );
+}
+
+let ignoreNumber3 = 200;
+
+/**
+ * detects the collision
+ * @param a character or villain
+ * @param b for character effect
+ * @returns if collide true
+ */
+export function detectCollisionMove(a: Effects, b: Effects): boolean {
+  return (
+    a.x < b.x + b.width - ignoreNumber3 &&
+    a.x + a.width - ignoreNumber3 > b.x &&
+    a.y < b.y + b.height - ignoreNumber3 &&
+    a.y + a.height - ignoreNumber3 > b.y
   );
 }

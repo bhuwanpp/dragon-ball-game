@@ -1,3 +1,4 @@
+import { player } from "../main";
 import { AnimationSprite } from "./sprite";
 
 export class Character {
@@ -73,6 +74,28 @@ export class Character {
       ctx.strokeStyle = "black";
       ctx.lineWidth = 2;
       ctx.strokeRect(this.x, this.y, this.width, this.height);
+    }
+  }
+  draw2(ctx: CanvasRenderingContext2D) {
+    if (this.currentAnimation) {
+      const frame = this.currentAnimation.getFrame();
+      ctx.save();
+      ctx.scale(-1, 1);
+      ctx.drawImage(
+        this.image,
+        frame.x,
+        frame.y,
+        this.spriteWidth,
+        this.spriteHeight,
+        -this.x,
+        player.y,
+        this.width,
+        this.height
+      );
+      ctx.strokeStyle = "black";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(this.x, this.y, this.width, this.height);
+      ctx.restore();
     }
   }
 }

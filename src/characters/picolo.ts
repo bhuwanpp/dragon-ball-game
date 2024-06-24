@@ -1,18 +1,17 @@
 import { Character } from "../classes/character";
+import { characterAnimationState } from "../enums/character";
+import { playerSpriteImage } from "../images/preload";
 import {
   canvasHeight,
   characterHeight,
   characterWidth,
   picoloHeight,
   picoloWidth,
-} from "../contants";
+} from "../utils/contants";
 
-const spriteSheet = new Image();
-spriteSheet.src = "/images/picolofight.png";
-
-// goku
+// picolo
 export const picolo = new Character(
-  spriteSheet,
+  playerSpriteImage.picoloImg,
   20,
   canvasHeight - characterHeight,
   picoloWidth,
@@ -20,10 +19,9 @@ export const picolo = new Character(
   characterWidth - 100,
   characterHeight
 );
-
 // stand animation
 picolo.loadAnimation(
-  "stand",
+  characterAnimationState.Stand,
   [
     { x: picoloWidth, y: 0 },
     { x: 3 * picoloWidth, y: 10 * picoloHeight },
@@ -32,15 +30,19 @@ picolo.loadAnimation(
 );
 // walk
 picolo.loadAnimation(
-  "walk",
+  characterAnimationState.Walk,
   [{ x: 4 * picoloWidth, y: 3 * picoloHeight }],
   200
 );
 // walk back
-picolo.loadAnimation("back", [{ x: 0, y: 3 * picoloHeight }], 200);
+picolo.loadAnimation(
+  characterAnimationState.Back,
+  [{ x: 0, y: 3 * picoloHeight }],
+  200
+);
 // kick
 picolo.loadAnimation(
-  "kick",
+  characterAnimationState.Kick,
   [
     { x: 0 * picoloWidth, y: 5 * picoloHeight },
     { x: 2 * picoloWidth, y: 5 * picoloHeight },
@@ -49,7 +51,7 @@ picolo.loadAnimation(
 );
 // fist punch
 picolo.loadAnimation(
-  "fist",
+  characterAnimationState.Fist,
   [
     { x: 0 * picoloWidth, y: 4 * picoloHeight },
     { x: 1 * picoloWidth, y: 4 * picoloHeight },
@@ -59,16 +61,13 @@ picolo.loadAnimation(
 
 // block
 picolo.loadAnimation(
-  "block",
-  [
-    { x: 3 * picoloWidth, y: picoloHeight },
-    // { x: 5 * picoloWidth, y: 0 },
-  ],
+  characterAnimationState.Block,
+  [{ x: 3 * picoloWidth, y: picoloHeight }],
   300
 );
 
 picolo.loadAnimation(
-  "hit",
+  characterAnimationState.Hit,
   [
     { x: 4 * picoloWidth, y: picoloHeight },
     { x: 5 * picoloWidth, y: picoloHeight },
@@ -77,7 +76,7 @@ picolo.loadAnimation(
   200
 );
 picolo.loadAnimation(
-  "hitFlash",
+  characterAnimationState.HitByFinal,
   [
     { x: 5 * picoloWidth, y: picoloHeight },
     { x: 6 * picoloWidth, y: picoloHeight },
@@ -87,7 +86,7 @@ picolo.loadAnimation(
 );
 // final blow
 picolo.loadAnimation(
-  "final",
+  characterAnimationState.FinalAttack,
   [
     { x: 6 * picoloWidth, y: 6 * picoloHeight },
     { x: 0 * picoloWidth, y: 7 * picoloHeight },

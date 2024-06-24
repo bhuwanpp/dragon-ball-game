@@ -1,4 +1,6 @@
 import { Bots } from "../classes/bot";
+import { characterAnimationState } from "../enums/character";
+import { playerSpriteImage } from "../images/preload";
 import {
   canvasHeight,
   canvasWidth,
@@ -6,14 +8,10 @@ import {
   characterWidth,
   enemySpriteHeight,
   enemySpriteWidth,
-} from "../contants";
-
-const spriteSheet = new Image();
-spriteSheet.src = "/images/SS_Vegetanobg.png";
-
-// goku
+} from "../utils/contants";
+// vegita
 export const vegita = new Bots(
-  spriteSheet,
+  playerSpriteImage.vegitaImg,
   canvasWidth - 10,
   canvasHeight - characterHeight,
   enemySpriteWidth,
@@ -24,7 +22,7 @@ export const vegita = new Bots(
 
 // stand animation
 vegita.loadAnimation(
-  "stand",
+  characterAnimationState.Stand,
   [
     { x: enemySpriteWidth, y: 0 },
     { x: 2 * enemySpriteWidth, y: 0 },
@@ -33,7 +31,7 @@ vegita.loadAnimation(
 );
 // walk
 vegita.loadAnimation(
-  "walk",
+  characterAnimationState.Walk,
   [
     { x: 0 * enemySpriteWidth, y: 3 * enemySpriteHeight },
     { x: 3 * enemySpriteWidth, y: 3 * enemySpriteHeight },
@@ -42,7 +40,7 @@ vegita.loadAnimation(
 );
 // walk back
 vegita.loadAnimation(
-  "back",
+  characterAnimationState.Back,
   [
     { x: 1 * enemySpriteWidth, y: 3 * enemySpriteHeight },
     { x: 0 * enemySpriteWidth, y: 3 * enemySpriteHeight },
@@ -51,7 +49,7 @@ vegita.loadAnimation(
 );
 
 vegita.loadAnimation(
-  "kick",
+  characterAnimationState.Kick,
   [
     { x: 4 * enemySpriteWidth, y: 5 * enemySpriteHeight },
     { x: 5 * enemySpriteWidth, y: 5 * enemySpriteHeight },
@@ -60,7 +58,7 @@ vegita.loadAnimation(
 );
 // fist punch
 vegita.loadAnimation(
-  "fist",
+  characterAnimationState.Fist,
   [
     { x: 3 * enemySpriteWidth, y: 3 * enemySpriteHeight },
     { x: 6 * enemySpriteWidth, y: 3 * enemySpriteHeight },
@@ -69,7 +67,13 @@ vegita.loadAnimation(
 );
 // block
 vegita.loadAnimation(
-  "hit",
+  characterAnimationState.Block,
+  [{ x: enemySpriteWidth, y: 6 * enemySpriteHeight }],
+  200
+);
+// hit
+vegita.loadAnimation(
+  characterAnimationState.Hit,
   [
     { x: 3 * enemySpriteWidth, y: enemySpriteHeight },
     { x: 4 * enemySpriteWidth, y: enemySpriteHeight },
@@ -77,22 +81,16 @@ vegita.loadAnimation(
   200
 );
 vegita.loadAnimation(
-  "block",
-  [{ x: enemySpriteWidth, y: 6 * enemySpriteHeight }],
-  200
-);
-vegita.loadAnimation(
-  "hitKame",
+  characterAnimationState.HitByFinal,
   [
     { x: 6 * enemySpriteWidth, y: enemySpriteHeight },
     { x: 0, y: 2 * enemySpriteHeight },
   ],
   200
 );
-
 // final blow
 vegita.loadAnimation(
-  "final",
+  characterAnimationState.FinalAttack,
   [
     { x: 2 * enemySpriteWidth, y: 9 * enemySpriteHeight },
     { x: 3 * enemySpriteWidth, y: 9 * enemySpriteHeight },
