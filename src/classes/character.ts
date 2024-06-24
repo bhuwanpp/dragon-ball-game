@@ -3,7 +3,8 @@ import { AnimationSprite } from "./sprite";
 
 export class Character {
   private animations: { [key: string]: AnimationSprite } = {};
-  private currentAnimation: AnimationSprite | null = null;
+  public currentAnimation: AnimationSprite | null = null;
+
   public state: string = "stand";
 
   constructor(
@@ -87,7 +88,7 @@ export class Character {
         frame.y,
         this.spriteWidth,
         this.spriteHeight,
-        -this.x,
+        -player.x - player.width,
         player.y,
         this.width,
         this.height

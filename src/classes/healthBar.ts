@@ -1,4 +1,5 @@
-import { canvasWidth } from "../utils/contants";
+import { canvasWidth } from "../constants/game";
+import { redValue } from "../constants/health";
 export let gameOver: boolean = false;
 export function changeGameOver() {
   gameOver = false;
@@ -52,11 +53,12 @@ export class HealthBar {
    *
    * @param val for  health status bar
    */
+
   public updateHealth(val: number): void {
-    if (val < 30) {
+    if (val < redValue) {
       this.color = "red";
     }
-    if (val > 30) {
+    if (val > redValue) {
       this.color = "green";
     }
     if (val <= 0) {

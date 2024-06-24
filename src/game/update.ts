@@ -27,9 +27,8 @@ import {
 import { makeFinalFalse } from "./controls";
 import { decreaseHeroHealth, decreaseVillainHealth } from "./health";
 import { gameSound } from "../audio/audio";
+import { callInterval, finalAttack, firstSecond } from "../constants/loop";
 
-const callInterval: number = 13000;
-const finalAttack: number = 4000;
 let elapsedTime: number = 0;
 let attackTime: number = 0;
 let blastHeroTime: number = 0;
@@ -95,13 +94,13 @@ export function gameUpdate(deltaTime: number, currentTime: number) {
     botFinal.x -= 10;
   }
   //sound
-  if (botChoose.state === characterAnimationState.FinalAttack) {
-    if (botChoose === vegita) {
-      gameSound.finalFlashSound.play();
-    } else {
-      gameSound.friezaFSound.play();
-    }
-  }
+  // if (botChoose.state === characterAnimationState.FinalAttack) {
+  //   if (botChoose === vegita) {
+  //     gameSound.finalFlashSound.play();
+  //   } else {
+  //     gameSound.friezaFSound.play();
+  //   }
+  // }
   // detect collision betn player and bot final move
   if (botChoose.state === characterAnimationState.FinalAttack) {
     if (detectCollision(player, botFinal)) {
@@ -157,7 +156,7 @@ export function gameUpdate(deltaTime: number, currentTime: number) {
     botChoose.setState(characterAnimationState.HitByFinal);
     finalMove.setState("");
     player.setState(characterAnimationState.Stand);
-    decreaseVillainHealth(0.05);
+    decreaseVillainHealth(1);
     blastHeroTime = 0;
     makeFinalFalse();
   }
@@ -179,7 +178,7 @@ export function gameUpdate(deltaTime: number, currentTime: number) {
   // } else {
   //   clashEffect.setState("");
   // }
-  if (blastHeroTime >= 1000) {
+  if (blastHeroTime >= firstSecond) {
     blastHero.setState("");
     friezaBlast.setState("");
     // for villan

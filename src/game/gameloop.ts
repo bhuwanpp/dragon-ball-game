@@ -9,11 +9,17 @@ import { goku } from "../characters/goku";
 import { vegita } from "../characters/vegeta";
 import { Bots } from "../classes/bot";
 import { detectCollision2 } from "../collisiondetect/detect";
+import { characterWidth } from "../constants/character";
+import { canvasWidth } from "../constants/game";
+import {
+  firstInterval,
+  secondInterval,
+  thirdInterval,
+} from "../constants/loop";
 import { smallAttack } from "../effects/kagehame";
 import { AttackState } from "../enums/attacks";
 import { characterAnimationState } from "../enums/character";
 import { finalMove, nextForReset, player } from "../main";
-import { canvasWidth, characterWidth } from "../utils/contants";
 import { block, down, final, fist, kick, left, right, up } from "./controls";
 import { decreaseHeroHealth, decreaseVillainHealth } from "./health";
 
@@ -59,20 +65,24 @@ export function gameLoop() {
 }
 
 let elapsedTime: number = 0;
+
 export function botFunction(deltaTime: number) {
   smallAttack.x = chooseBot.x - chooseBot.width / 2 - 100;
   smallAttack.y = chooseBot.y + 100;
   elapsedTime += deltaTime;
 
   if (detectCollision2(player, chooseBot)) {
-    if (elapsedTime > 5000) {
-      elapsedTime = 0;
-    }
-    if (elapsedTime > 2000) {
+    // 2s
+    if (elapsedTime > firstInterval) {
       chooseBot.setState(characterAnimationState.Kick);
     }
-    if (elapsedTime > 4000) {
+    //4s
+    if (elapsedTime > secondInterval) {
       chooseBot.setState(characterAnimationState.Fist);
+    }
+    //5s
+    if (elapsedTime > thirdInterval) {
+      elapsedTime = 0;
     }
     if (
       chooseBot.state === characterAnimationState.Fist ||

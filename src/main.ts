@@ -3,7 +3,6 @@ import { changeGameOver, gameOver } from "./classes/healthBar";
 import { gameSprite } from "./images/preload";
 import "./style.css";
 import { canvasTexts } from "./ui/canvasText";
-import { nextLevelHeight, nextLevelWidth } from "./utils/contants";
 
 import { gameSound } from "./audio/audio";
 import { frieza } from "./characters/frieza";
@@ -42,6 +41,7 @@ import {
   drawBackgroundFirst,
   drawBackgroundSecond,
 } from "./ui/backgroudImage";
+import { nextLevelHeight, nextLevelWidth } from "./constants/game";
 
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 export const ctx = canvas.getContext("2d")!;
@@ -145,7 +145,7 @@ export function updateGame(currentTime: number) {
     gameLoop();
     gameUpdate(deltaTime, currentTime);
     botFunction(deltaTime);
-    soundFunction();
+    // soundFunction();
 
     // game over
     if (gameOver) {

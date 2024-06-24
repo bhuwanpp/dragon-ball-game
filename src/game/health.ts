@@ -1,5 +1,6 @@
 import { HealthBar } from "../classes/healthBar";
-import { canvasWidth } from "../utils/contants";
+import { canvasWidth } from "../constants/game";
+import { firstFull, secondFull } from "../constants/health";
 
 export let healthVillain: number = 100;
 export let healthHero: number = 100;
@@ -35,21 +36,21 @@ export function decreaseVillainHealth(amount: number) {
 }
 
 export function resetVillainHealth() {
-  healthVillain = 100;
+  healthVillain = firstFull;
   healthBarVillain.updateHealth(healthVillain);
 }
 
 export function resetHeroHealth() {
-  healthHero = 100;
+  healthHero = firstFull;
   healthBarHero.updateHealth(healthHero);
 }
 
 export function nextLevelHeroHealth() {
-  healthHero = 130;
+  healthHero = secondFull;
   healthBarHero.updateHealth(healthHero);
 }
 
 export function nextLevelVillainHealth() {
-  healthVillain = 100;
+  healthVillain = firstFull;
   healthBarVillain.updateHealth(healthVillain);
 }

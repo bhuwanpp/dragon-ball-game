@@ -1,14 +1,15 @@
 import { Bots } from "../classes/bot";
-import { characterAnimationState } from "../enums/character";
-import { playerSpriteImage } from "../images/preload";
 import {
-  canvasHeight,
-  canvasWidth,
   characterHeight,
   characterWidth,
   friezaSpriteHeight,
   friezaSpriteWidth,
-} from "../utils/contants";
+} from "../constants/character";
+import { frameRateOneS, frameRateTwo } from "../constants/frame";
+import { canvasHeight, canvasWidth } from "../constants/game";
+import { characterAnimationState } from "../enums/character";
+import { playerSpriteImage } from "../images/preload";
+
 // frieza
 export const frieza = new Bots(
   playerSpriteImage.friezaFinal,
@@ -26,7 +27,7 @@ frieza.loadAnimation(
     { x: friezaSpriteWidth, y: 0 },
     { x: 2 * friezaSpriteWidth, y: 0 },
   ],
-  500
+  frameRateTwo //200
 );
 // walk
 frieza.loadAnimation(
@@ -35,7 +36,7 @@ frieza.loadAnimation(
     { x: 2 * friezaSpriteWidth, y: 0 * friezaSpriteWidth },
     { x: 3 * friezaSpriteWidth, y: 0 * friezaSpriteHeight },
   ],
-  200
+  frameRateTwo
 );
 // walk back
 frieza.loadAnimation(
@@ -44,7 +45,7 @@ frieza.loadAnimation(
     { x: 1 * friezaSpriteWidth, y: 3 * friezaSpriteHeight },
     { x: 0 * friezaSpriteWidth, y: 3 * friezaSpriteHeight },
   ],
-  200
+  frameRateTwo
 );
 
 frieza.loadAnimation(
@@ -53,7 +54,7 @@ frieza.loadAnimation(
     { x: 4 * friezaSpriteWidth, y: 5 * friezaSpriteHeight },
     { x: 5 * friezaSpriteWidth, y: 5 * friezaSpriteHeight },
   ],
-  200
+  frameRateTwo
 );
 // fist punch
 frieza.loadAnimation(
@@ -62,7 +63,7 @@ frieza.loadAnimation(
     { x: 3 * friezaSpriteWidth, y: 3 * friezaSpriteHeight },
     { x: 6 * friezaSpriteWidth, y: 3 * friezaSpriteHeight },
   ],
-  200
+  frameRateTwo
 );
 // block
 frieza.loadAnimation(
@@ -71,12 +72,12 @@ frieza.loadAnimation(
     { x: 3 * friezaSpriteWidth, y: friezaSpriteHeight },
     { x: 4 * friezaSpriteWidth, y: friezaSpriteHeight },
   ],
-  200
+  frameRateTwo
 );
 frieza.loadAnimation(
   characterAnimationState.Block,
   [{ x: 2 * friezaSpriteWidth, y: 1 * friezaSpriteHeight }],
-  200
+  frameRateTwo
 );
 frieza.loadAnimation(
   characterAnimationState.HitByFinal,
@@ -84,7 +85,7 @@ frieza.loadAnimation(
     { x: 5 * friezaSpriteWidth, y: friezaSpriteHeight },
     { x: 6 * friezaSpriteWidth, y: friezaSpriteHeight },
   ],
-  200
+  frameRateTwo
 );
 
 // final blow
@@ -94,5 +95,5 @@ frieza.loadAnimation(
     { x: 2 * friezaSpriteWidth, y: 4 * friezaSpriteHeight },
     { x: 6 * friezaSpriteWidth, y: 4 * friezaSpriteHeight },
   ],
-  1000
+  frameRateOneS //1000
 );
