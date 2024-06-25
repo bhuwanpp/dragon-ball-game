@@ -23,9 +23,14 @@ import {
   piccoloBlast,
   powerUpEffect,
   smallAttack,
-} from "./effects/kagehame";
+} from "./effects/allEffects";
 import { characterAnimationState } from "./enums/character";
-import { botFunction, gameLoop, soundFunction } from "./game/gameloop";
+import {
+  botFunction,
+  counterResetFunction,
+  gameLoop,
+  soundFunction,
+} from "./game/gameloop";
 import {
   healthBarHero,
   healthBarVillain,
@@ -33,7 +38,6 @@ import {
   healthVillain,
   nextLevelHeroHealth,
   nextLevelVillainHealth,
-  powerUpHero,
   resetHeroHealth,
   resetVillainHealth,
 } from "./game/health";
@@ -52,34 +56,37 @@ canvas.height = window.innerHeight;
 
 // variables
 export let isGameRunning = false;
-let isPaused: boolean = false;
+export let isPaused: boolean = false;
 export let selectedCharacter: string | undefined;
 let animationGame: number;
 export let botChoose: Bots;
 export let player: Character;
 export let finalMove: Effects;
 
+let lastTime = 0;
+const FPS = 60;
+const frameDuriation = 1000 / FPS;
+let gameTime = 0;
 // paused
 document.addEventListener("keydown", (event) => {
   // timeStamp = current
   if (event.code === "KeyP") {
     isPaused = !isPaused;
+    ctx.fillStyle = "black";
+    ctx.font = "50px Silkscreen";
+    ctx.fillText("Paused", canvas.width / 2 - 150, canvas.height / 2);
     cancelAnimationFrame(animationGame);
     if (!isPaused) {
-      requestAnimationFrame(updateGame);
+      updateGame();
     }
   }
 });
 
-let lastTime = 0;
-const FPS = 60;
-const frameDuriation = 1000 / FPS;
-let gameTime = 0;
 /**
  *Update all the game
  * @param currentTime Get from request animation frame
  */
-export function updateGame(currentTime: number) {
+export function updateGame(currentTime: number = 0) {
   const deltaTime = currentTime - lastTime;
 
   if (deltaTime >= frameDuriation) {
@@ -91,6 +98,7 @@ export function updateGame(currentTime: number) {
     } else {
       drawBackgroundFirst(ctx);
     }
+    // console.log(currentTime);
     // canvas text
     canvasTexts(ctx);
     // change characters
@@ -238,7 +246,7 @@ function handleCharacterSelection(event: MouseEvent) {
       canvas.removeEventListener("click", handleCharacterSelection);
       lastTime = 0;
       gameSound.firstIntro.pause();
-      requestAnimationFrame(updateGame);
+      updateGame();
     }
   });
 }
@@ -315,7 +323,7 @@ function resetGameFunction() {
   changeBg = false;
   resetHeroHealth();
   resetVillainHealth();
-  powerUpHero();
+  counterResetFunction();
   // game time
   gameTime = 0;
 
@@ -326,7 +334,7 @@ function resetGameFunction() {
   goku.y = canvas.height - goku.height;
   botChoose.y = canvas.height - botChoose.height;
   picolo.y = canvas.height - picolo.height;
-  requestAnimationFrame(updateGame);
+  updateGame();
 }
 export function resetVFunction() {
   resetVariable = false;
@@ -345,7 +353,7 @@ function goToNextLevel() {
   gameTime = 0;
   nextLevelHeroHealth();
   nextLevelVillainHealth();
-  powerUpHero();
+  counterResetFunction();
   smallAttack.setState("");
   goku.x = 0;
   picolo.x = 0;
@@ -354,7 +362,7 @@ function goToNextLevel() {
   botChoose.y = canvas.height - botChoose.height;
   picolo.y = canvas.height - picolo.height;
 
-  requestAnimationFrame(updateGame);
+  updateGame();
 }
 
 export function falseNextLevel() {

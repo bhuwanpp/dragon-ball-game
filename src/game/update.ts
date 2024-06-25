@@ -8,7 +8,7 @@ import {
   finalFlash,
   friezaBlast,
   piccoloBlast,
-} from "../effects/kagehame";
+} from "../effects/allEffects";
 
 import { frieza } from "../characters/frieza";
 import { goku } from "../characters/goku";

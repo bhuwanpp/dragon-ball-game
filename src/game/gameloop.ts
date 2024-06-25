@@ -16,7 +16,7 @@ import {
   secondInterval,
   thirdInterval,
 } from "../constants/loop";
-import { powerUpEffect, smallAttack } from "../effects/kagehame";
+import { powerUpEffect, smallAttack } from "../effects/allEffects";
 import { AttackState } from "../enums/attacks";
 import { characterAnimationState } from "../enums/character";
 import { finalMove, nextForReset, player } from "../main";
@@ -83,6 +83,7 @@ export function gameLoop() {
     if (powerUp && healthHero < 30 && counterPower < 2) {
       powerUpEffect.setState(AttackState.PowerUp);
       player.setState(characterAnimationState.PowerUp);
+      gameSound.powerUpSound.play();
       setTimeout(() => {
         counterPower += 1;
         powerUpHero();
@@ -131,7 +132,8 @@ export function botFunction(deltaTime: number) {
         player.state !== characterAnimationState.PowerUp)
     ) {
       player.setState(characterAnimationState.Hit);
-      decreaseHeroHealth(0.06);
+      // decreaseHeroHealth(0.06);
+      decreaseHeroHealth(0.4);
     }
 
     if (

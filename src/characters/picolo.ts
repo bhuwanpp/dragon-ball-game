@@ -5,7 +5,7 @@ import {
   picoloHeight,
   picoloWidth,
 } from "../constants/character";
-import { frameRateFive, frameRateOneS, frameRateTwo } from "../constants/frame";
+import { frameRateFive, frameRateTwo } from "../constants/frame";
 import { canvasHeight } from "../constants/game";
 import { characterAnimationState } from "../enums/character";
 import { playerSpriteImage } from "../images/preload";

@@ -28,12 +28,11 @@ import {
   piccoloBlastSWidth,
   smallASHeight,
   smallASWidth,
-} from "../constants/efftect";
+} from "../constants/effect";
 import { frameRateTwo } from "../constants/frame";
 import { canvasWidth } from "../constants/game";
 import { AttackState } from "../enums/attacks";
 import { effectSpriteImage } from "../images/preload";
-import { player } from "../main";
 
 // Plyer effects
 export const kamehame = new Effects(

@@ -4,7 +4,6 @@ import {
   firstFull,
   healthBarHeight,
   healthBarWidth,
-  powerUpHealth,
   secondFull,
 } from "../constants/health";
 
