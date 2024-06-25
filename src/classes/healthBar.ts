@@ -37,7 +37,7 @@ export class HealthBar {
 
   /**
    * Draws the health bar on the canvas.
-   * @param ctx The CanvasRenderingctx2D to draw on.
+   * @param ctx The CanvasRenderingCtx2D to draw on.
    */
   public show(ctx: CanvasRenderingContext2D): void {
     ctx.lineWidth = 4;

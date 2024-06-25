@@ -42,7 +42,7 @@ let started: boolean = false;
 let botFinal: Effects;
 
 /**
- * Player's and bot final moves
+ * Players and bot final moves
  * Updates game state based on elapsed and current time.
  * @param deltaTime - Time elapsed since last update.
  * @param currentTime - Current time .
@@ -142,7 +142,7 @@ export function gameUpdate(deltaTime: number, currentTime: number): void {
     botChoose.x += 10;
   }
 
-  // detection collision between bot and player's final move
+  // detection collision between bot and players final move
   if (
     detectCollision2(botChoose, finalMove) &&
     player.state === characterAnimationState.FinalAttack
@@ -162,7 +162,7 @@ export function gameUpdate(deltaTime: number, currentTime: number): void {
     botChoose.setState(characterAnimationState.HitByFinal);
     finalMove.setState("");
     player.setState(characterAnimationState.Stand);
-    decreaseVillainHealth(1);
+    decreaseVillainHealth(5);
     blastHeroTime = 0;
     makeFinalFalse();
   }

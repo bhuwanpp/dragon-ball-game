@@ -8,6 +8,14 @@ Refrence :"Dragon Ball Z: Super Butoden"
 
 "Dragon Ball: Battle of Saiyans" is an immersive two-player fighting game inspired by the iconic battles from the Dragon Ball Z series. Players engage in intense combat, unleashing powerful energy attacks like the Kamehameha wave as they strive for victory.
 
+## Quick Start
+
+- Clone the project \
+  `git clone git@github.com:bhuwanpp/dragon-ball-game.git`
+- cd dragon-ball-game
+- `npm install`
+- `npm run dev`
+
 ## Features
 
 - Select from two playable characters: Goku and Piccolo.

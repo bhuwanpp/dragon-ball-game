@@ -47,7 +47,7 @@ export class Character {
   }
 
   /**
-   * Updates the character's current animation frame based on deltaTime.
+   * Updates the characters current animation frame based on deltaTime.
    * @param deltaTime The time difference since the last update.
    */
   update(deltaTime: number) {
@@ -81,7 +81,7 @@ export class Character {
   }
 
   /**
-   * Draws the character flipped horizontally relative to the player's position.
+   * Draws the character flipped horizontally relative to the players position.
    * @param ctx The CanvasRenderingContext2D to draw on.
    */
   draw2(ctx: CanvasRenderingContext2D) {
@@ -100,10 +100,6 @@ export class Character {
         this.width,
         this.height
       );
-      ctx.strokeStyle = "black";
-      ctx.lineWidth = 2;
-      ctx.strokeRect(this.x, this.y, this.width, this.height);
-      ctx.restore();
     }
   }
 }

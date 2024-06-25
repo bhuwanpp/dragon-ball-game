@@ -1,10 +1,9 @@
 import { HealthBar } from "../classes/healthBar";
 import { canvasWidth } from "../constants/game";
 import {
-  firstFull,
+  fullHealth,
   healthBarHeight,
   healthBarWidth,
-  secondFull,
 } from "../constants/health";
 
 export let healthVillain: number = 100;
@@ -21,6 +20,7 @@ export const healthBarHero = new HealthBar(
   healthHero,
   "green"
 );
+
 /**
  * Health bar for villain character
  */
@@ -34,51 +34,37 @@ export const healthBarVillain = new HealthBar(
 );
 
 /**
- * Decrease hero's health by specific amount.
+ * Decrease hero health by specific amount.
  * @param amount - The amount of decrease hero's health
  */
 export function decreaseHeroHealth(amount: number) {
   healthHero -= amount;
   healthBarHero.updateHealth(healthHero);
 }
+
 /**
- * Decreases the villain's health by the specified amount.
+ * Decreases the villains health by the specified amount.
  * Updates the health bar accordingly.
- * @param amount - The amount to decrease the villain's health by.
+ * @param amount - The amount to decrease the villains health by.
  */
 export function decreaseVillainHealth(amount: number) {
   healthVillain -= amount;
   healthBarVillain.updateHealth(healthVillain);
 }
 /**
- * Resets the villain's health to the initial full health value.
+ * Resets the villains health to the initial full health value.
  */
 export function resetVillainHealth() {
-  healthVillain = firstFull;
+  healthVillain = fullHealth;
   healthBarVillain.updateHealth(healthVillain);
 }
 
 /**
- * Resets the hero's health to the initial full health value.
+ * Resets the heros health to the initial full health value.
  */
 export function resetHeroHealth() {
-  healthHero = firstFull;
+  healthHero = fullHealth;
   healthBarHero.updateHealth(healthHero);
-}
-
-/**
- * Sets the hero's health to the next level full health value.
- */
-export function nextLevelHeroHealth() {
-  healthHero = secondFull;
-  healthBarHero.updateHealth(healthHero);
-}
-/**
- * Sets the villain's health to the next level full health value.
- */
-export function nextLevelVillainHealth() {
-  healthVillain = firstFull;
-  healthBarVillain.updateHealth(healthVillain);
 }
 
 export function powerUpHero() {

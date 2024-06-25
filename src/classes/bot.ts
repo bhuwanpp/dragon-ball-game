@@ -40,7 +40,7 @@ export class Bots extends Character {
     }
   }
   /**
-   * Draw the bot facing the direction of `botChoose`.
+   * Draw the bot facing the direction of botChoose.
    * @param ctx The CanvasRenderingContext2D to draw on.
    */
   draw2(ctx: CanvasRenderingContext2D) {
@@ -57,9 +57,6 @@ export class Bots extends Character {
         this.width,
         this.height
       );
-      ctx.strokeStyle = "red";
-      ctx.lineWidth = 2;
-      ctx.strokeRect(-this.x, this.y, this.width, this.height);
     }
   }
 }

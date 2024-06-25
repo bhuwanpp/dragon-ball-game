@@ -40,6 +40,10 @@ import {
 
 let chooseBot: Bots;
 export let counterPower: number = 0;
+
+/**
+ * Reset to power up counter
+ */
 export function counterResetFunction() {
   counterPower = 0;
 }
@@ -132,8 +136,11 @@ export function botFunction(deltaTime: number) {
         player.state !== characterAnimationState.PowerUp)
     ) {
       player.setState(characterAnimationState.Hit);
-      // decreaseHeroHealth(0.06);
-      decreaseHeroHealth(0.4);
+      if (chooseBot === vegita) {
+        decreaseHeroHealth(0.09);
+      } else {
+        decreaseHeroHealth(0.15);
+      }
     }
 
     if (
@@ -142,11 +149,15 @@ export function botFunction(deltaTime: number) {
     ) {
       chooseBot.setState(characterAnimationState.Block);
     }
-    if (player.state === characterAnimationState.Fist) {
-      decreaseVillainHealth(0.09);
-    }
-    if (player.state === characterAnimationState.Kick) {
-      decreaseVillainHealth(0.1);
+    if (
+      player.state === characterAnimationState.Fist ||
+      player.state === characterAnimationState.Kick
+    ) {
+      if (chooseBot === vegita) {
+        decreaseVillainHealth(0.5);
+      } else {
+        decreaseVillainHealth(0.3);
+      }
     }
   }
 }

@@ -36,8 +36,6 @@ import {
   healthBarVillain,
   healthHero,
   healthVillain,
-  nextLevelHeroHealth,
-  nextLevelVillainHealth,
   resetHeroHealth,
   resetVillainHealth,
 } from "./game/health";
@@ -68,8 +66,8 @@ const FPS = 60;
 const frameDuriation = 1000 / FPS;
 let gameTime = 0;
 // paused
+
 document.addEventListener("keydown", (event) => {
-  // timeStamp = current
   if (event.code === "KeyP") {
     isPaused = !isPaused;
     ctx.fillStyle = "black";
@@ -164,13 +162,13 @@ export function updateGame(currentTime: number = 0) {
     gameUpdate(deltaTime, currentTime);
     botFunction(deltaTime);
     soundFunction();
+  }
+  // game over
 
-    // game over
-    if (gameOver) {
-      isGameRunning = false;
-      changeGameOver();
-      GameOver();
-    }
+  if (gameOver) {
+    isGameRunning = false;
+    changeGameOver();
+    GameOver();
   }
   if (!isPaused && isGameRunning) {
     animationGame = requestAnimationFrame(updateGame);
@@ -210,7 +208,7 @@ function displayCharacterSelection() {
   ctx.fillStyle = "white";
   ctx.font = "50px Silkscreen";
   ctx.fillText("Choose a character", canvas.width / 4, 110);
-  // Render each character's image and name
+  // Render each characters image and name
   characters.forEach((character, index) => {
     const x = (index + 1) * 400;
     const y = canvas.height / 4;
@@ -281,11 +279,20 @@ export function GameOver() {
     } else {
       gameSound.friezaWin.play();
     }
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        resetGameFunction();
-      }
-    });
+
+    if (nextForReset) {
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          goToNextLevel();
+        }
+      });
+    } else {
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          resetGameFunction();
+        }
+      });
+    }
   } else if (healthVillain <= 0 && nextForReset === false) {
     ctx.font = "bold 50px Arvo ";
     ctx.fillText("You Win ", canvas.width / 2 - 100, 420);
@@ -351,8 +358,8 @@ function goToNextLevel() {
   nextLevel = true; // change for elapsed time
   changeBg = true;
   gameTime = 0;
-  nextLevelHeroHealth();
-  nextLevelVillainHealth();
+  resetHeroHealth();
+  resetVillainHealth();
   counterResetFunction();
   smallAttack.setState("");
   goku.x = 0;
