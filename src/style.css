@@ -8,7 +8,7 @@ body{
 }
 
 
-.controls{
+.game__controls{
   position: absolute;
   left: 1%;
   top: 1%;
@@ -17,14 +17,7 @@ body{
   font: bold;
 }
 
-.objectives{
-  position: absolute;
-  bottom: 30%;
-  left: 1%;
-  color: white;
-  font-size: 20px;
-}
-.name{
+.game--name{
   position: absolute;
   top: 30%;
   left: 1%;
@@ -33,7 +26,7 @@ body{
   text-align: center;
 }
 
-.start{
+.game--startBtn{
   position: absolute;
   top: 80%;
   left: 39%;
@@ -51,7 +44,7 @@ body{
   background: white;
   color: black;
 }
-.start:hover{
+.game--startBtn:hover{
   opacity: 0.8;
   background: #E59982;
 }

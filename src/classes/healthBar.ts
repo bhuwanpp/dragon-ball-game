@@ -1,9 +1,12 @@
 import { canvasWidth } from "../constants/game";
 import { redValue } from "../constants/health";
 export let gameOver: boolean = false;
+
 export function changeGameOver() {
   gameOver = false;
 }
+
+// health bar class
 export class HealthBar {
   private x: number;
   private y: number;
@@ -33,27 +36,26 @@ export class HealthBar {
   }
 
   /**
-   *
-   * @param context for fillText and fillStroke
+   * Draws the health bar on the canvas.
+   * @param ctx The CanvasRenderingctx2D to draw on.
    */
-
-  public show(context: CanvasRenderingContext2D): void {
-    context.lineWidth = 4;
-    context.strokeStyle = "#333";
-    context.fillStyle = this.color;
-    context.fillRect(this.x, this.y, this.w, this.h);
-    context.strokeRect(this.x, this.y, this.maxWidth, this.h);
-    context.fillStyle = "red";
-    context.font = "30px Teko";
-    context.fillText("Ki bar", 30, 38);
-    context.font = "30px Teko";
-    context.fillText("Ki bar", canvasWidth - 100, 38);
+  public show(ctx: CanvasRenderingContext2D): void {
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "#333";
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.w, this.h);
+    ctx.strokeRect(this.x, this.y, this.maxWidth, this.h);
+    ctx.fillStyle = "red";
+    ctx.font = "30px Teko";
+    ctx.fillText("Ki bar", 30, 38);
+    ctx.font = "30px Teko";
+    ctx.fillText("Ki bar", canvasWidth - 100, 38);
   }
-  /**
-   *
-   * @param val for  health status bar
-   */
 
+  /**
+   * Updates the health value of the health bar.
+   * @param val The new health value.
+   */
   public updateHealth(val: number): void {
     if (val < redValue) {
       this.color = "red";

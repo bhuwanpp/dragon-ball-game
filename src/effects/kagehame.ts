@@ -30,11 +30,12 @@ import {
   smallASWidth,
 } from "../constants/efftect";
 import { frameRateTwo } from "../constants/frame";
-import { canvasHeight, canvasWidth } from "../constants/game";
+import { canvasWidth } from "../constants/game";
 import { AttackState } from "../enums/attacks";
 import { effectSpriteImage } from "../images/preload";
+import { player } from "../main";
 
-// plyer
+// Plyer effects
 export const kamehame = new Effects(
   effectSpriteImage.kameImg,
   goku.x + goku.width / 2 - 100,
@@ -63,6 +64,26 @@ export const piccoloBlast = new Effects(
   effectsWidth,
   effectsHeight
 );
+export const smallAttack = new Effects(
+  effectSpriteImage.smallA,
+  vegita.x - vegita.width / 2 - 100,
+  vegita.y + 100,
+  smallASWidth,
+  smallASHeight,
+  smallASWidth,
+  smallASHeight
+);
+export const piccoloAttack = new Effects(
+  effectSpriteImage.piccoloAttackImg,
+  picolo.x - picolo.width / 2 - 100,
+  picolo.y,
+  piccoloAttackSWidth,
+  piccoloAttackSHeight,
+  piccoloAttackSWidth,
+  piccoloBlastSHeight
+);
+
+//Bots effects
 export const friezaBlast = new Effects(
   effectSpriteImage.friezaBImg,
   goku.x,
@@ -81,15 +102,7 @@ export const blastHero = new Effects(
   effectsWidth,
   effectsHeight
 );
-export const smallAttack = new Effects(
-  effectSpriteImage.smallA,
-  vegita.x - vegita.width / 2 - 100,
-  vegita.y + 100,
-  smallASWidth,
-  smallASHeight,
-  smallASWidth,
-  smallASHeight
-);
+
 export const finalFlash = new Effects(
   effectSpriteImage.finalf,
   vegita.x - vegita.width,
@@ -108,29 +121,34 @@ export const deathBall = new Effects(
   effectsWidth,
   effectsHeight
 );
-export const piccoloAttack = new Effects(
-  effectSpriteImage.piccoloAttackImg,
-  picolo.x - picolo.width / 2 - 100,
-  picolo.y,
-  piccoloAttackSWidth,
-  piccoloAttackSHeight,
-  piccoloAttackSWidth,
-  piccoloBlastSHeight
-);
+
 export const clashEffect = new Effects(
   effectSpriteImage.clashEffectImg,
-  canvasWidth / 2,
-  canvasHeight / 2,
+  canvasWidth / 2 - 400,
+  100,
   clashSWidth,
   clashSHeight,
   clashImgWidth,
   clashImgHeight
 );
+export const powerUpEffect = new Effects(
+  effectSpriteImage.powerUpEffectImg,
+  goku.x + 50,
+  200,
+  267,
+  380,
+  goku.width / 2 + 100,
+  goku.height * 2
+);
+
+// Define animation frames for each effect
 
 // kamehame
 kamehame.loadAnimation(AttackState.Kame, [{ x: 18, y: 14 }], frameRateTwo);
+
 // blast
 blast.loadAnimation(AttackState.Blast, [{ x: 208, y: 535 }], frameRateTwo);
+
 piccoloBlast.loadAnimation(
   AttackState.Blast,
   [
@@ -141,6 +159,9 @@ piccoloBlast.loadAnimation(
   ],
   frameRateTwo
 );
+piccoloAttack.loadAnimation(AttackState.Kame, [{ x: 0, y: 0 }], frameRateTwo);
+
+// frieza blast
 friezaBlast.loadAnimation(
   AttackState.Blast,
   [
@@ -151,6 +172,7 @@ friezaBlast.loadAnimation(
   ],
   frameRateTwo
 );
+
 blastHero.loadAnimation(AttackState.Blast, [{ x: 208, y: 535 }], frameRateTwo);
 
 smallAttack.loadAnimation(
@@ -159,6 +181,7 @@ smallAttack.loadAnimation(
   frameRateTwo
 );
 
+// vegita final move
 finalFlash.loadAnimation(
   AttackState.FinalFlash,
   [
@@ -167,19 +190,31 @@ finalFlash.loadAnimation(
   ],
   frameRateTwo
 );
+
+// frieza final move
 deathBall.loadAnimation(
   AttackState.FinalFlash,
   [{ x: 325, y: 752 }],
   frameRateTwo
 );
 
-piccoloAttack.loadAnimation(AttackState.Kame, [{ x: 0, y: 0 }], frameRateTwo);
+// two effects clash
 clashEffect.loadAnimation(
   AttackState.Clash,
   [
-    { x: 13, y: 801 },
-    { x: 241, y: 801 },
-    { x: 482, y: 801 },
+    { x: 150, y: 700 },
+    { x: 614, y: 700 },
+    { x: 1078, y: 700 },
+  ],
+  frameRateTwo
+);
+
+// power up  effect
+powerUpEffect.loadAnimation(
+  AttackState.PowerUp,
+  [
+    { x: 200, y: 200 },
+    { x: 320, y: 300 },
   ],
   frameRateTwo
 );

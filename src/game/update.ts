@@ -3,6 +3,7 @@ import { Effects } from "../classes/effects";
 import {
   blast,
   blastHero,
+  clashEffect,
   deathBall,
   finalFlash,
   friezaBlast,
@@ -12,7 +13,11 @@ import {
 import { frieza } from "../characters/frieza";
 import { goku } from "../characters/goku";
 import { picolo } from "../characters/picolo";
-import { detectCollision, detectCollision2 } from "../collisiondetect/detect";
+import {
+  detectCollision,
+  detectCollision2,
+  detectCollisionMove,
+} from "../collisiondetect/detect";
 import { AttackState } from "../enums/attacks";
 import { characterAnimationState } from "../enums/character";
 import {
@@ -37,10 +42,13 @@ let started: boolean = false;
 let botFinal: Effects;
 
 /**
- *
- * @param deltaTime for smooth animation
+ * Player's and bot final moves
+ * Updates game state based on elapsed and current time.
+ * @param deltaTime - Time elapsed since last update.
+ * @param currentTime - Current time .
  */
-export function gameUpdate(deltaTime: number, currentTime: number) {
+export function gameUpdate(deltaTime: number, currentTime: number): void {
+  // if game not started we need to reset time
   if (!started) {
     started = true;
     elapsedTime -= currentTime;
@@ -55,11 +63,12 @@ export function gameUpdate(deltaTime: number, currentTime: number) {
     botFinal = deathBall;
   }
 
-  blast.x = botChoose.x - botChoose.width / 2 - 100;
-  blast.y = botChoose.y;
+  blast.x = botChoose.x - botChoose.width / 2 - 150;
+  blast.y = botChoose.y + 100;
   piccoloBlast.x = botChoose.x - botChoose.width / 2 - 200;
   piccoloBlast.y = botChoose.y + 100;
 
+  // Increment timers if player is in standing state
   if (player.state === "stand") {
     elapsedTime += deltaTime;
     blastHeroTime += deltaTime;
@@ -70,11 +79,7 @@ export function gameUpdate(deltaTime: number, currentTime: number) {
   botFinal.y = botChoose.y + 100;
 
   const distance = player.x + player.width - botChoose.x + botChoose.width;
-  // console.log(distance);
-  // if (distance > 608) {
-  //   console.log("it here");
-  // }
-  // if player stand for 5 sec
+
   if (nextLevel) {
     elapsedTime = 0;
     blastHeroTime = 0;
@@ -94,13 +99,13 @@ export function gameUpdate(deltaTime: number, currentTime: number) {
     botFinal.x -= 10;
   }
   //sound
-  // if (botChoose.state === characterAnimationState.FinalAttack) {
-  //   if (botChoose === vegita) {
-  //     gameSound.finalFlashSound.play();
-  //   } else {
-  //     gameSound.friezaFSound.play();
-  //   }
-  // }
+  if (botChoose.state === characterAnimationState.FinalAttack) {
+    if (botChoose === vegita) {
+      gameSound.finalFlashSound.play();
+    } else {
+      gameSound.friezaFSound.play();
+    }
+  }
   // detect collision betn player and bot final move
   if (botChoose.state === characterAnimationState.FinalAttack) {
     if (detectCollision(player, botFinal)) {
@@ -126,9 +131,6 @@ export function gameUpdate(deltaTime: number, currentTime: number) {
         blastHero.setState(AttackState.Blast);
         decreaseHeroHealth(5);
       }
-      // if (player.state === characterAnimationState.Block) {
-      // decreaseHeroHealth(5);
-      // }
     }
   }
   if (elapsedTime >= callInterval && distance < 300) {
@@ -136,7 +138,11 @@ export function gameUpdate(deltaTime: number, currentTime: number) {
     botChoose.setState("walk");
     botChoose.x -= 10;
   }
-  // detection collision between bot and player final move
+  if (distance > 688) {
+    botChoose.x += 10;
+  }
+
+  // detection collision between bot and player's final move
   if (
     detectCollision2(botChoose, finalMove) &&
     player.state === characterAnimationState.FinalAttack
@@ -161,28 +167,35 @@ export function gameUpdate(deltaTime: number, currentTime: number) {
     makeFinalFalse();
   }
 
-  //detect collision between two final attack
-  // if (detectCollisionMove(finalMove, botFinal)) {
-  //   attackTime = 0;
-  //   console.log("it detect");
+  // detect collision between two final attack
+  if (
+    player.state === characterAnimationState.FinalAttack &&
+    botChoose.state === characterAnimationState.FinalAttack
+  ) {
+    if (detectCollisionMove(finalMove, botFinal)) {
+      attackTime = 0;
+      blastHeroTime = 0;
 
-  //   finalMove.x = player.x;
-  //   finalMove.y = player.y + 100;
-  //   botFinal.x = botChoose.x - 400;
-  //   botFinal.y = botChoose.y + 100;
+      finalMove.x = player.x;
+      finalMove.y = player.y + 100;
+      botFinal.x = botChoose.x - 400;
+      botFinal.y = botChoose.y + 100;
 
-  //   finalMove.setState("");
-  //   botFinal.setState("");
-  //   makeFinalFalse();
-  //   clashEffect.setState(AttackState.Clash);
-  // } else {
-  //   clashEffect.setState("");
-  // }
+      finalMove.setState("");
+      botFinal.setState("");
+      makeFinalFalse();
+      clashEffect.setState(AttackState.Clash);
+      gameSound.clashSound.play();
+    }
+  }
+
+  // Clear all effects after specific time interval
   if (blastHeroTime >= firstSecond) {
     blastHero.setState("");
     friezaBlast.setState("");
     // for villan
     blast.setState("");
     piccoloBlast.setState("");
+    clashEffect.setState("");
   }
 }

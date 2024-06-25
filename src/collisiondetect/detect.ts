@@ -1,8 +1,8 @@
 import { Bots } from "../classes/bot";
 import { Character } from "../classes/character";
 import { Effects } from "../classes/effects";
+import { offsetMinusTwo, offsetThree, offsetTwo } from "../constants/collision";
 
-let ignoreNumber = 300;
 /**
  * detects the collision
  * @param a character or villain
@@ -11,18 +11,15 @@ let ignoreNumber = 300;
  */
 export function detectCollision(a: Character | Bots, b: Effects): boolean {
   return (
-    a.x < b.x + b.width - ignoreNumber &&
-    a.x + a.width - ignoreNumber > b.x &&
-    a.y < b.y + b.height - ignoreNumber &&
-    a.y + a.height - ignoreNumber > b.y
+    a.x < b.x + b.width - offsetThree &&
+    a.x + a.width - offsetThree > b.x &&
+    a.y < b.y + b.height - offsetThree &&
+    a.y + a.height - offsetThree > b.y
   );
 }
 
-// for finalMove for villain because it is reverse image
-let ignoreNumber2 = -200;
-
 /**
- * detect the bot attack collision
+ * for finalMove for villain because it is reverse image
  * @param a for bot attack
  * @param b for effects
  * @returns   if collide true
@@ -32,26 +29,24 @@ export function detectCollision2(
   b: Effects | Bots
 ): boolean {
   return (
-    a.x < b.x + b.width - ignoreNumber2 &&
-    a.x + a.width - ignoreNumber2 > b.x &&
-    a.y < b.y + b.height - ignoreNumber2 &&
-    a.y + a.height - ignoreNumber2 > b.y
+    a.x < b.x + b.width - offsetMinusTwo &&
+    a.x + a.width - offsetMinusTwo > b.x &&
+    a.y < b.y + b.height - offsetMinusTwo &&
+    a.y + a.height - offsetMinusTwo > b.y
   );
 }
 
-let ignoreNumber3 = 200;
-
 /**
- * detects the collision
+ * detects the collision betn two effects clash
  * @param a character or villain
  * @param b for character effect
  * @returns if collide true
  */
 export function detectCollisionMove(a: Effects, b: Effects): boolean {
   return (
-    a.x < b.x + b.width - ignoreNumber3 &&
-    a.x + a.width - ignoreNumber3 > b.x &&
-    a.y < b.y + b.height - ignoreNumber3 &&
-    a.y + a.height - ignoreNumber3 > b.y
+    a.x < b.x + b.width - offsetTwo &&
+    a.x + a.width - offsetTwo > b.x &&
+    a.y < b.y + b.height - offsetTwo &&
+    a.y + a.height - offsetTwo > b.y
   );
 }

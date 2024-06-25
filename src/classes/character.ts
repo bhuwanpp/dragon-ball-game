@@ -4,7 +4,6 @@ import { AnimationSprite } from "./sprite";
 export class Character {
   private animations: { [key: string]: AnimationSprite } = {};
   public currentAnimation: AnimationSprite | null = null;
-
   public state: string = "stand";
 
   constructor(
@@ -17,10 +16,10 @@ export class Character {
     public height: number
   ) {}
   /**
-   * performs animation using sprites
-   * @param name state
-   * @param frames size of sprite
-   * @param fraeRate frame rate for animation
+   * Loads animation frames into the character's animations dictionary.
+   * @param name of the animation state
+   * @param frames  Array of frame coordinates {x, y}.
+   * @param fraeRate Frame rate for the animation.
    */
   loadAnimation(
     name: string,
@@ -31,32 +30,35 @@ export class Character {
   }
 
   /**
-   *
+   *Sets the current animation for the character.
    * @param name  animation name
    */
   setAnimation(name: string) {
     this.currentAnimation = this.animations[name];
   }
+
   /**
-   *
-   * @param state set sprite state like walk, attack
+   * Sets the state of the character and updates the current animation.
+   * @param state set sprite state (eg."Walk", "attack")
    */
   setState(state: string) {
     this.state = state;
     this.setAnimation(state);
   }
+
   /**
-   * for update the game
-   * @param deltaTime to set animation time
+   * Updates the character's current animation frame based on deltaTime.
+   * @param deltaTime The time difference since the last update.
    */
   update(deltaTime: number) {
     if (this.currentAnimation) {
       this.currentAnimation.update(deltaTime);
     }
   }
+
   /**
-   *
-   * @param ctx for draw image
+   * For draw image
+   * @param ctx ctx The CanvasRenderingContext2D to draw on.
    */
   draw(ctx: CanvasRenderingContext2D) {
     if (this.currentAnimation) {
@@ -77,6 +79,11 @@ export class Character {
       ctx.strokeRect(this.x, this.y, this.width, this.height);
     }
   }
+
+  /**
+   * Draws the character flipped horizontally relative to the player's position.
+   * @param ctx The CanvasRenderingContext2D to draw on.
+   */
   draw2(ctx: CanvasRenderingContext2D) {
     if (this.currentAnimation) {
       const frame = this.currentAnimation.getFrame();

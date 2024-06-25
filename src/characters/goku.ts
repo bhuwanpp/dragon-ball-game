@@ -103,3 +103,12 @@ goku.loadAnimation(
   ],
   frameRateOneS
 );
+// power up
+goku.loadAnimation(
+  characterAnimationState.PowerUp,
+  [
+    { x: 4 * charSpriteWidth, y: 8 * charSpriteHeight },
+    { x: 5 * charSpriteWidth, y: 8 * charSpriteHeight },
+  ],
+  frameRateOneS
+);

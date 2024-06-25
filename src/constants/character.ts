@@ -1,14 +1,14 @@
-export const characterHeight: number = 500;
-export const characterWidth: number = 500;
+export const characterHeight = 500;
+export const characterWidth = 500;
 
-export const charSpriteWidth: number = 117;
-export const charSpriteHeight: number = 97;
+export const charSpriteWidth = 117;
+export const charSpriteHeight = 97;
 
-export const picoloWidth: number = 166;
-export const picoloHeight: number = 117;
+export const picoloWidth = 166;
+export const picoloHeight = 117;
 
-export const enemySpriteWidth: number = 111;
-export const enemySpriteHeight: number = 100;
+export const enemySpriteWidth = 111;
+export const enemySpriteHeight = 100;
 
-export const friezaSpriteWidth: number = 123;
-export const friezaSpriteHeight: number = 104;
+export const friezaSpriteWidth = 123;
+export const friezaSpriteHeight = 104;

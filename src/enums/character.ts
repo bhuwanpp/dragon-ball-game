@@ -8,4 +8,5 @@ export enum characterAnimationState {
   Block = "block",
   HitByFinal = "hit-by-final",
   FinalAttack = "final-attack",
+  PowerUp = "power-up",
 }

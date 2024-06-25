@@ -1,11 +1,13 @@
-let left: boolean = false;
-let right: boolean = false;
-let up: boolean = false;
-let down: boolean = false;
-let kick: boolean = false;
-let fist: boolean = false;
-let block: boolean = false;
-export let final = false;
+let left = false;
+let right = false;
+let up = false;
+let down = false;
+let kick = false;
+let fist = false;
+let block = false;
+export let final: boolean = false;
+export let powerUp: boolean = false;
+
 export function makeFinalFalse() {
   final = false;
 }
@@ -43,6 +45,9 @@ function press(e: KeyboardEvent) {
     case "l":
       final = true;
       break;
+    case "g":
+      powerUp = true;
+      break;
   }
 }
 
@@ -75,6 +80,9 @@ function release(e: KeyboardEvent) {
       break;
     case "l":
       final = true;
+      break;
+    case "g":
+      powerUp = false;
       break;
   }
 }

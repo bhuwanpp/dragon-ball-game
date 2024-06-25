@@ -4,4 +4,5 @@ export enum AttackState {
   SmallAttack = "sattack",
   FinalFlash = "final-flash",
   Clash = "clash",
+  PowerUp = "power-up",
 }

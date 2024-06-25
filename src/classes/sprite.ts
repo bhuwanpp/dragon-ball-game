@@ -1,7 +1,6 @@
 /**
  *  Represents an animated sprite that cycles through frames.
  */
-
 export class AnimationSprite {
   private frames: { x: number; y: number }[];
   private currentFrame: number;
@@ -13,9 +12,10 @@ export class AnimationSprite {
     this.currentFrame = 0;
     this.elapsedTime = 0;
   }
+
   /**
-   *
-   * @param deltaTime for equal frame rates
+   * Updates the animation based on elapsed time.
+   * @param deltaTime The time since the last update.
    */
   update(deltaTime: number) {
     this.elapsedTime += deltaTime;
@@ -26,8 +26,8 @@ export class AnimationSprite {
   }
 
   /**
-   *
-   * @returns return current frame
+   * Gets the current frame of the animation.
+   * @returns The current frame coordinates { x, y }.
    */
   getFrame() {
     return this.frames[this.currentFrame];

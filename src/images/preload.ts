@@ -23,6 +23,7 @@ const finalf = getImage("/images/effects/vegetafinal.png");
 const deathBallImg = getImage("/images/effects/deathball.png");
 const piccoloAttackImg = getImage("/images/effects/picoloAttack.png");
 const clashEffectImg = getImage("/images/effects/clash.png");
+const powerUpEffectImg = getImage("/images/effects/powerUp.png");
 
 //choose character
 const gokuChoose = getImage("/images/logos/gokucharacter.jpg");
@@ -44,6 +45,7 @@ export const effectSpriteImage: { [key: string]: HTMLImageElement } = {
   deathBallImg,
   piccoloAttackImg,
   clashEffectImg,
+  powerUpEffectImg,
 };
 
 export const gameSprite: { [key: string]: HTMLImageElement } = {

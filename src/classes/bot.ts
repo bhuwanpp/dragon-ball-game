@@ -1,3 +1,4 @@
+import { botChoose } from "../main";
 import { Character } from "./character";
 
 export class Bots extends Character {
@@ -12,7 +13,10 @@ export class Bots extends Character {
   ) {
     super(image, x, y, spriteWidth, spriteHeight, width, height);
   }
-
+  /**
+   * Draw the bot flipped horizontally.
+   * @param ctx The CanvasRenderingContext2D to draw on.
+   */
   draw(ctx: CanvasRenderingContext2D) {
     if (this.currentAnimation) {
       const frame = this.currentAnimation.getFrame();
@@ -24,7 +28,7 @@ export class Bots extends Character {
         frame.y,
         this.spriteWidth,
         this.spriteHeight,
-        -this.x,
+        -this.x, // Draw position adjusted for flip
         this.y,
         this.width,
         this.height
@@ -33,6 +37,29 @@ export class Bots extends Character {
       ctx.lineWidth = 2;
       ctx.strokeRect(-this.x, this.y, this.width, this.height);
       ctx.restore();
+    }
+  }
+  /**
+   * Draw the bot facing the direction of `botChoose`.
+   * @param ctx The CanvasRenderingContext2D to draw on.
+   */
+  draw2(ctx: CanvasRenderingContext2D) {
+    if (this.currentAnimation) {
+      const frame = this.currentAnimation.getFrame();
+      ctx.drawImage(
+        this.image,
+        frame.x,
+        frame.y,
+        this.spriteWidth,
+        this.spriteHeight,
+        botChoose.x - botChoose.width,
+        botChoose.y,
+        this.width,
+        this.height
+      );
+      ctx.strokeStyle = "red";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(-this.x, this.y, this.width, this.height);
     }
   }
 }

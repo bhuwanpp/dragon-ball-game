@@ -1,13 +1,15 @@
+import { canvasHeight, canvasWidth } from "./game";
+
 export const blastSWidth = 118;
 export const blastSHeight = 113;
 export const effectsWidth = 400;
 export const effectsHeight = 400;
 export const smallASWidth = 267;
 // goku
-export const kameWidth: number = 476;
-export const kameHeight: number = 486;
-export const kameImgWidth: number = 300;
-export const kameImgHeight: number = 200;
+export const kameWidth = 476;
+export const kameHeight = 486;
+export const kameImgWidth = 300;
+export const kameImgHeight = 200;
 
 // frieza;
 export const friezaBlastSWidth = 159;
@@ -26,5 +28,6 @@ export const piccoloAttackSHeight = 64;
 //clash
 export const clashSWidth = 202;
 export const clashSHeight = 197;
-export const clashImgWidth = 500;
-export const clashImgHeight = 500;
+export const clashImgWidth = canvasWidth / 2;
+export const clashImgHeight = canvasHeight;
+// power up

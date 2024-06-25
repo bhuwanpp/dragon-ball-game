@@ -98,5 +98,16 @@ picolo.loadAnimation(
     { x: 6 * picoloWidth, y: 6 * picoloHeight },
     { x: 0 * picoloWidth, y: 7 * picoloHeight },
   ],
-  frameRateOneS
+  frameRateFive
+);
+
+// power up
+picolo.loadAnimation(
+  characterAnimationState.PowerUp,
+  [
+    { x: 6 * picoloWidth, y: 8 * picoloHeight },
+    { x: 0 * picoloWidth, y: 9 * picoloHeight },
+    { x: 1 * picoloWidth, y: 9 * picoloHeight },
+  ],
+  frameRateFive
 );

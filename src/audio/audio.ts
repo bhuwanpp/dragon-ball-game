@@ -17,6 +17,8 @@ const vegitaFist = getAudio("/audio/vegita/fist.wav");
 const friezaWin = getAudio("/audio/frieza/win.wav");
 
 const firstIntro = getAudio("/audio/game/theme.ogg");
+const clashSound = getAudio("/audio/game/clash.wav");
+clashSound.playbackRate = 2;
 
 export const playerSound: { [key: string]: HTMLAudioElement } = {
   walkSound,
@@ -30,6 +32,7 @@ export const gameSound: { [key: string]: HTMLAudioElement } = {
   friezaWin,
   vegitaFist,
   friezaFist,
+  clashSound,
 };
 export const gokuSound: { [key: string]: HTMLAudioElement } = {
   gokuFist,

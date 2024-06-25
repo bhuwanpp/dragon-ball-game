@@ -16,56 +16,97 @@ import {
   secondInterval,
   thirdInterval,
 } from "../constants/loop";
-import { smallAttack } from "../effects/kagehame";
+import { powerUpEffect, smallAttack } from "../effects/kagehame";
 import { AttackState } from "../enums/attacks";
 import { characterAnimationState } from "../enums/character";
 import { finalMove, nextForReset, player } from "../main";
-import { block, down, final, fist, kick, left, right, up } from "./controls";
-import { decreaseHeroHealth, decreaseVillainHealth } from "./health";
+import {
+  block,
+  down,
+  final,
+  fist,
+  kick,
+  left,
+  powerUp,
+  right,
+  up,
+} from "./controls";
+import {
+  decreaseHeroHealth,
+  decreaseVillainHealth,
+  healthHero,
+  powerUpHero,
+} from "./health";
 
 let chooseBot: Bots;
+export let counterPower: number = 0;
+export function counterResetFunction() {
+  counterPower = 0;
+}
 
+/**
+ * It represents the player movements in the game
+ */
 export function gameLoop() {
   chooseBot = nextForReset ? frieza : vegita;
-
-  if (left && player.x > -90) {
-    player.setState(characterAnimationState.Back);
-    player.x -= 10;
-  }
-  if (right && player.x + characterWidth - 100 < canvasWidth) {
-    player.setState(characterAnimationState.Walk);
-    player.x += 10;
-  }
-  if (up && player.y > -50) {
-    player.y -= 60;
-    chooseBot.y -= 60;
-  }
-  if (down && player.y + 150 < characterWidth) {
-    player.y += 60;
-    chooseBot.y += 60;
-  }
-  if (block) {
-    player.setState(characterAnimationState.Block);
-  }
-  if (kick) {
-    player.setState(characterAnimationState.Kick);
-  }
-  if (fist) {
-    player.setState(characterAnimationState.Fist);
-  }
-  if (final && !detectCollision2(player, chooseBot)) {
-    player.setState(characterAnimationState.FinalAttack);
-    finalMove.setState(AttackState.Kame);
-    finalMove.x += 10;
-  } else {
-    finalMove.x = player.x + player.width / 2 - 100;
-    finalMove.y = player.y + 150;
-    finalMove.setState("");
+  powerUpEffect.x = player.x + 50;
+  if (player) {
+    if (left && player.x > -90) {
+      player.setState(characterAnimationState.Back);
+      player.x -= 10;
+    }
+    if (right && player.x + characterWidth - 100 < canvasWidth) {
+      player.setState(characterAnimationState.Walk);
+      player.x += 10;
+    }
+    if (up && player.y > -50) {
+      player.y -= 60;
+      chooseBot.y -= 60;
+      powerUpEffect.height = player.height;
+    }
+    if (down && player.y + 150 < characterWidth) {
+      player.y += 60;
+      chooseBot.y += 60;
+    }
+    if (block) {
+      player.setState(characterAnimationState.Block);
+    }
+    if (kick) {
+      player.setState(characterAnimationState.Kick);
+    }
+    if (fist) {
+      player.setState(characterAnimationState.Fist);
+    }
+    if (powerUp) {
+      player.setState(characterAnimationState.PowerUp);
+    }
+    if (powerUp && healthHero < 30 && counterPower < 2) {
+      powerUpEffect.setState(AttackState.PowerUp);
+      player.setState(characterAnimationState.PowerUp);
+      setTimeout(() => {
+        counterPower += 1;
+        powerUpHero();
+        powerUpEffect.setState("");
+      }, 2000);
+    }
+    if (final && !detectCollision2(player, chooseBot)) {
+      player.setState(characterAnimationState.FinalAttack);
+      finalMove.setState(AttackState.Kame);
+      finalMove.x += 10;
+    } else {
+      finalMove.x = player.x + player.width / 2 - 100;
+      finalMove.y = player.y + 150;
+      finalMove.setState("");
+    }
   }
 }
 
 let elapsedTime: number = 0;
 
+/**
+ * It represents the bot movements in game
+ * @param deltaTime for Calculate time  for attack player from bot
+ */
 export function botFunction(deltaTime: number) {
   smallAttack.x = chooseBot.x - chooseBot.width / 2 - 100;
   smallAttack.y = chooseBot.y + 100;
@@ -86,12 +127,13 @@ export function botFunction(deltaTime: number) {
     }
     if (
       chooseBot.state === characterAnimationState.Fist ||
-      chooseBot.state === characterAnimationState.Kick
+      (chooseBot.state === characterAnimationState.Kick &&
+        player.state !== characterAnimationState.PowerUp)
     ) {
       player.setState(characterAnimationState.Hit);
-      // decreaseHeroHealth(0.06);
-      decreaseHeroHealth(0.09);
+      decreaseHeroHealth(0.06);
     }
+
     if (
       player.state === characterAnimationState.Fist ||
       player.state === characterAnimationState.Kick
@@ -102,11 +144,14 @@ export function botFunction(deltaTime: number) {
       decreaseVillainHealth(0.09);
     }
     if (player.state === characterAnimationState.Kick) {
-      decreaseVillainHealth(1);
+      decreaseVillainHealth(0.1);
     }
   }
 }
 
+/**
+ * It represents the sound in the game
+ */
 export function soundFunction() {
   if (
     player.state === characterAnimationState.Fist ||
