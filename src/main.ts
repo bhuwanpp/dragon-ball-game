@@ -96,7 +96,6 @@ export function updateGame(currentTime: number = 0) {
     } else {
       drawBackgroundFirst(ctx);
     }
-    // console.log(currentTime);
     // canvas text
     canvasTexts(ctx);
     // change characters

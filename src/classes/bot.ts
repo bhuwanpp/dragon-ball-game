@@ -13,6 +13,7 @@ export class Bots extends Character {
   ) {
     super(image, x, y, spriteWidth, spriteHeight, width, height);
   }
+
   /**
    * Draw the bot flipped horizontally.
    * @param ctx The CanvasRenderingContext2D to draw on.
@@ -33,12 +34,10 @@ export class Bots extends Character {
         this.width,
         this.height
       );
-      ctx.strokeStyle = "red";
-      ctx.lineWidth = 2;
-      ctx.strokeRect(-this.x, this.y, this.width, this.height);
       ctx.restore();
     }
   }
+
   /**
    * Draw the bot facing the direction of botChoose.
    * @param ctx The CanvasRenderingContext2D to draw on.

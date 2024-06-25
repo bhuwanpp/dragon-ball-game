@@ -74,9 +74,6 @@ export class Character {
         this.width,
         this.height
       );
-      ctx.strokeStyle = "black";
-      ctx.lineWidth = 2;
-      ctx.strokeRect(this.x, this.y, this.width, this.height);
     }
   }
 
@@ -100,6 +97,7 @@ export class Character {
         this.width,
         this.height
       );
+      ctx.restore();
     }
   }
 }
